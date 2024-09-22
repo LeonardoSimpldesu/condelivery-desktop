@@ -183,7 +183,7 @@ export default function PedidosPage(){
                             <TableCell className="hidden md:table-cell">R$499.99</TableCell>
                             <TableCell className="hidden md:table-cell">
                                 <p className="flex gap-2 items-center justify-center">
-                                <Star fill="yellow" color="yellow" size={16}/>4.5
+                                <Star fill="orange" color="orange" size={16}/>4.5
                                 </p>
                             </TableCell>
                             <TableCell className="hidden md:table-cell">

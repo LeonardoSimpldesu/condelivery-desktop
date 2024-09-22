@@ -31,13 +31,13 @@ export default function LogInPage(){
                             <Input />
                         </div>
                     </div>
-                    <Link href={'/'} className="my-6 text-center text-blue-700"> Esqueci minha senha</Link>
+                    <Link href={'auth/forgot-password'} className="my-6 text-center text-blue-700"> Esqueci minha senha</Link>
                     <div className="flex flex-col gap-4">
                     <Button className="py-6">Entrar</Button>
                         <Button variant={'outline'}>Google</Button>
                         <Button variant={'outline'}>Facebook</Button>
                     </div>
-                    <Link href={'/'} className="text-center flex-1 mt-20 text-blue-700"> Não possui uma conta? <span className="underline">Cadastrar</span></Link>
+                    <Link href={'auth/forgot-password'} className="text-center flex-1 mt-20 text-blue-700"> Não possui uma conta? <span className="underline">Cadastrar</span></Link>
                 </div>
             </div>
         </div>
