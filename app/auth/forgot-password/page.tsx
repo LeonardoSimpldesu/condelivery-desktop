@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { MainButton } from '@/components/pages/auth/main-button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Image from 'next/image'
@@ -30,7 +30,7 @@ export default function ForgotPasswordPage() {
             Insere o endereço de e-mail que você usou para se registrar no
             Condelivery. Você receberá um e-mail para definir uma nova senha.
           </p>
-          <Button className="py-6 mt-40">Entrar</Button>
+          <MainButton className="mt-40">Entrar</MainButton>
         </div>
       </div>
     </div>

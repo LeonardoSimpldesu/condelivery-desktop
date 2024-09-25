@@ -1,4 +1,5 @@
-import { Button } from '@/components/ui/button'
+import { MainButton } from '@/components/pages/auth/main-button'
+import { SecondaryButton } from '@/components/pages/auth/secondary-button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Image from 'next/image'
@@ -33,21 +34,22 @@ export default function LogInPage() {
           </div>
           <Link
             href={'auth/forgot-password'}
-            className="my-6 text-center text-blue-700"
+            className="my-6 mx-auto text-blue-700 relative inline-block group"
           >
-            {' '}
-            Esqueci minha senha
+            <span className="relative">
+              Esqueci minha senha
+              <span className="absolute left-0 bottom-0 w-full h-[1px] bg-blue-700 origin-center scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+            </span>
           </Link>
           <div className="flex flex-col gap-4">
-            <Button className="py-6">Entrar</Button>
-            <Button variant={'outline'}>Google</Button>
-            <Button variant={'outline'}>Facebook</Button>
+            <MainButton>Entrar</MainButton>
+            <SecondaryButton>Google</SecondaryButton>
+            <SecondaryButton>Facebook</SecondaryButton>
           </div>
           <Link
             href={'auth/forgot-password'}
             className="text-center flex-1 mt-20 text-blue-700"
           >
-            {' '}
             Não possui uma conta? <span className="underline">Cadastrar</span>
           </Link>
         </div>
