@@ -1,113 +1,161 @@
-import Image from 'next/image'
+import Image from "next/image";
+import Link from "next/link";
+
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
+    <main className="bg-[#DCDBDA] h-screen">
+      <div className="flex flex-col bg-[url('/landing/banner1.png')] bg-cover min-h-screen py-10 px-6 lg:px-40 justify-center">
+        
+        <div className="flex flex-col lg:flex-row justify-between items-center h-auto lg:h-[4.75rem] px-4 lg:px-[1.875rem] rounded-[20px] bg-[#E9EBF8] gap-6">
+        
+          <a href="#" className="w-[120px] lg:w-[150px] h-auto">
+            <Image src="/landing/logo-condelivery.png" width="150" height="70" alt="Logo Condelivery" />
           </a>
+          <nav className="mt-4 lg:mt-0">
+            <ul className="flex flex-col lg:flex-row list-none gap-4 lg:gap-8">
+              <li>
+                <a className="no-underline text-sm lg:text-base font-bold text-black" href="#sobre">Sobre</a>
+              </li>
+              <li>
+                <a className="no-underline text-sm lg:text-base font-bold text-black" href="#vantagens">Vantagens</a>
+              </li>
+              <li>
+                <a className="no-underline text-sm lg:text-base font-bold text-black" href="#recursos">Recursos</a>
+              </li>
+              <li>
+                <a className="no-underline text-sm lg:text-base font-bold text-black" href="#PerguntasFrequentes">Perguntas Frequentes</a>
+              </li>
+              <li>
+                <a className="no-underline text-sm lg:text-base font-bold text-black" href="#contato">Contato</a>
+              </li>
+            </ul>
+          </nav>
+          <div className="mt-4 lg:mt-0">
+            <a href="#">
+              <button className="w-[90px] lg:w-[110px] h-[42px] text-[14px] lg:text-[17px] text-[#E9EBF8] rounded-[10px] border-none bg-[#F46D1F] cursor-pointer">
+                Download
+              </button>
+            </a>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center mt-10 lg:mt-[200px] text-[#E9EBF8]">
+          <h1 className="text-[48px] sm:text-[64px] md:text-[80px] lg:text-[128px] font-extrabold text-center">
+            Condelivery
+          </h1>
+          <p className="text-[18px] sm:text-[24px] md:text-[32px] lg:text-[40px] font-semibold text-center">
+            Suas entregas no condomínio, simplificadas!
+          </p>
+          <button className="w-[140px] sm:w-[160px] md:w-[180px] lg:w-[191.65px] h-[48px] sm:h-[56px] md:h-[62px] lg:h-[66px] rounded-[10px] border border-[#DCDBDA] bg-transparent mt-6 lg:mt-[40px] text-[16px] sm:text-[20px] md:text-[22px] lg:text-[24px] font-bold cursor-pointer">
+            Saiba mais
+          </button>
         </div>
       </div>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+      <section className="flex flex-col items-center justify-center p-6 bg-gray-50">
+        <div className="bg-white shadow-lg rounded-lg mt-20 p-8 max-w-4xl w-full">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">Sobre nós</h2>
+          <p className="text-xl font-bold text-orange-500 mb-6">Condelivery</p>
+          <p className="text-gray-700 leading-relaxed">
+            O Condelivery é uma plataforma que melhora a logística de entregas em condomínios,
+            integrando aplicativos de delivery como iFood, Rappi e Uber. Além disso, permite que 
+            moradores ofertem e busquem serviços, criando oportunidades de emprego local e 
+            facilitando a indicação de prestadores de serviços. A segurança dos dados é garantida
+            conforme a LGPD.
+          </p>
+        </div>
+      </section>
+      
+      <section className="flex flex-wrap justify-center mt-20 gap-4">
+        <Image 
+          src="/landing/img-mcc.png" 
+          alt="McCafe" 
+          width={350} 
+          height={455} 
+          className="w-[250px] h-[325px] md:w-[300px] md:h-[390px] lg:w-[350px] lg:h-[455px]"
         />
-      </div>
+        <Image 
+          src="/landing/twoPeople.png" 
+          alt="Two People" 
+          width={350} 
+          height={455} 
+          className="w-[250px] h-[325px] md:w-[300px] md:h-[390px] lg:w-[350px] lg:h-[455px]"
+        />
+        <Image 
+          src="/landing/handshake.png" 
+          alt="Handshake" 
+          width={350} 
+          height={455} 
+          className="w-[250px] h-[325px] md:w-[300px] md:h-[390px] lg:w-[350px] lg:h-[455px]"
+        />
+        <Image 
+          src="/landing/picking-up-package.png" 
+          alt="Picking up Package" 
+          width={350} 
+          height={455} 
+          className="w-[250px] h-[325px] md:w-[300px] md:h-[390px] lg:w-[350px] lg:h-[455px]"
+        />
+      </section>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+      <section className="py-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          {/* Título da seção */}
+          <h2 className="text-3xl font-bold text-center mb-10">Feedback dos nossos clientes</h2>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+          {/* Cards de feedback */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Primeiro Card */}
+            <div className="relative bg-gray-200 rounded-lg shadow-md overflow-hidden">
+              <Image src="/landing/taking-box-from-car.png" width='784' height='420' alt="" className="w-full object-cover"/>
+              <div className="absolute bottom-0 left-0 p-4 bg-black bg-opacity-50 w-full">
+                <h3 className="text-white font-semibold">Carlos Pereira</h3>
+                <p className="text-white text-sm">
+                  Desde que começamos a usar o Condelivery, a logística de entregas melhorou
+                  significativamente. A integração com o iFood e o Rappi facilita muito, e a
+                  segurança dos dados me deixa tranquilo.
+                </p>
+              </div>
+            </div>
+            {/* Segundo Card */}
+            <div className="relative bg-gray-200 rounded-lg shadow-md overflow-hidden">
+              <Image src="/landing/display.png" width='784' height='420' alt="" className="w-full object-cover"/>
+              <div className="absolute bottom-0 left-0 p-4 bg-black bg-opacity-50 w-full">
+                <h3 className="text-white font-semibold">Ana Silva</h3>
+                <p className="text-white text-sm">
+                  O Condelivery transformou a maneira como recebemos nossas encomendas no 
+                  condomínio. Antes, era um caos, com pacotes se acumulando na portaria. 
+                  Agora, tudo é organizado e posso confiar no sistema.
+                </p>
+              </div>
+            </div>
+          </div>
+          {/* Estatísticas */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mt-12">
+            {/* Estatística 1 */}
+            <div>
+              <h3 className="text-2xl font-bold">7,5M</h3>
+              <p className="text-lg font-semibold text-gray-600">Condomínios</p>
+            </div>
+            {/* Estatística 2 */}
+            <div>
+              <h3 className="text-2xl font-bold">12</h3>
+              <p className="text-lg font-semibold text-gray-600">Anos de serviços</p>
+            </div>
+            {/* Estatística 3 */}
+            <div>
+              <h3 className="text-2xl font-bold">15M</h3>
+              <p className="text-lg font-semibold text-gray-600">Clientes satisfeitos</p>
+            </div>
+            {/* Estatística 4 */}
+            <div>
+              <h3 className="text-2xl font-bold">99%</h3>
+              <p className="text-lg	 font-semibold text-gray-600">Taxa de felicidade</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   )
 }
+
