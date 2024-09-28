@@ -73,25 +73,11 @@ export function OrderDetailsModal({
           </div>
           <div className="ml-auto flex items-center gap-1">
             <Button size="sm" variant="outline" className="h-8 gap-1">
-              <Truck className="h-3.5 w-3.5" />
+              <Star className="h-3.5 w-3.5" />
               <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-                Acompanhar pedido
+                Avaliar pedido
               </span>
             </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button size="icon" variant="outline" className="h-8 w-8">
-                  <MoreVertical className="h-3.5 w-3.5" />
-                  <span className="sr-only">More</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Editar</DropdownMenuItem>
-                <DropdownMenuItem>Exportar</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Excluir</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
         </DialogHeader>
         <div className="p-6 text-sm">

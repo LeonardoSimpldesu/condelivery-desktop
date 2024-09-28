@@ -1,14 +1,10 @@
 import Image from 'next/image'
 import {
-  ChevronLeft,
-  ChevronRight,
   Copy,
   CreditCard,
   File,
-  ListFilter,
-  MoreHorizontal,
-  MoreVertical,
-  Truck,
+  ListFilter, Package,
+  Star
 } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
@@ -24,17 +20,10 @@ import {
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
+  DropdownMenuContent, DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-} from '@/components/ui/pagination'
 import { Separator } from '@/components/ui/separator'
 import {
   Table,
@@ -50,9 +39,19 @@ export const description =
   'An pedidos dashboard with a sidebar navigation. The sidebar has icon navigation. The content area has a breadcrumb and search in the header. The main area has a list of recent pedidos with a filter and export button. The main area also has a detailed view of a single pedido with pedido details, shipping information, billing information, customer information, and payment information.'
 
 export default function OrdersPage() {
+  const renderStars = (rating: number) => {
+    return Array(5)
+      .fill(0)
+      .map((_, i) => (
+        <Star
+          key={i}
+          className={`h-4 w-4 ${i < Math.floor(rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+        />
+      ))
+  }
   return (
-    <main className="container mx-auto mt-6 grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-      <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
+    <main className="container mx-auto mt-6 grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 xl:grid-cols-3">
+      <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-3 xl:col-span-2">
         <Tabs defaultValue="semana">
           <div className="flex items-center">
             <TabsList>
@@ -75,13 +74,13 @@ export default function OrdersPage() {
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>Filtrar por</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuCheckboxItem checked>
-                    Pendente
-                  </DropdownMenuCheckboxItem>
                   <DropdownMenuCheckboxItem>
-                    Em Andamento
+                    Aguardando solicitação
                   </DropdownMenuCheckboxItem>
-                  <DropdownMenuCheckboxItem>Entregue</DropdownMenuCheckboxItem>
+                  <DropdownMenuCheckboxItem>Em rota</DropdownMenuCheckboxItem>
+                  <DropdownMenuCheckboxItem>
+                    Finalizado
+                  </DropdownMenuCheckboxItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               <Button size="sm" variant="outline" className="h-7 gap-1 text-sm">
@@ -106,13 +105,10 @@ export default function OrdersPage() {
                         <span className="sr-only">Image</span>
                       </TableHead>
                       <TableHead>Pedido</TableHead>
-                      <TableHead>Colaborador</TableHead>
+                      <TableHead className="hidden sm:table-cell">Colaborador</TableHead>
                       <TableHead>Status</TableHead>
-                      <TableHead className="hidden md:table-cell">
-                        Valor
-                      </TableHead>
-                      <TableHead className="hidden md:table-cell">
-                        Entregue em:
+                      <TableHead className="hidden lg:table-cell">
+                        Entregue/Previsão em:
                       </TableHead>
                       <TableHead>
                         <span className="sr-only">Actions</span>
@@ -120,7 +116,7 @@ export default function OrdersPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {Array.from({ length: 10 }).map((_, index) => (
+                    {Array.from({ length: 5 }).map((_, index) => (
                       <TableRow key={index}>
                         <TableCell className="hidden sm:table-cell">
                           <Image
@@ -131,39 +127,25 @@ export default function OrdersPage() {
                             width="64"
                           />
                         </TableCell>
-                        <TableCell className="font-medium">
-                          Laser Lemonade Machine
+                        <TableCell>
+                          <div className="font-medium">Pedido #1456</div>
+                          <div className="hidden text-sm text-muted-foreground md:inline">
+                            IFood - Restaurante Sabor Caseiro
+                          </div>
                         </TableCell>
-                        <TableCell className="font-medium">
+                        <TableCell className="font-medium hidden sm:table-cell">
                           Kleber Miranda
                         </TableCell>
                         <TableCell>
-                          <Badge variant="outline">Pendente</Badge>
+                          <Badge>Avaliação</Badge>
                         </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          R$499.99
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
+                        <TableCell className="hidden lg:table-cell">
                           18-09-2024 10:42
                         </TableCell>
                         <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                aria-haspopup="true"
-                                size="icon"
-                                variant="ghost"
-                              >
-                                <MoreHorizontal className="h-4 w-4" />
-                                <span className="sr-only">Toggle menu</span>
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuLabel>Ações</DropdownMenuLabel>
-                              <DropdownMenuItem>Editar</DropdownMenuItem>
-                              <DropdownMenuItem>Deletar</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
+                          <div className="ml-auto w-fit h-fit bg-primary p-2 rounded-full">
+                            <Package className="text-white" />
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -179,7 +161,7 @@ export default function OrdersPage() {
           </TabsContent>
         </Tabs>
       </div>
-      <div>
+      <div className='lg:col-span-3 xl:col-span-1'>
         <Card className="overflow-hidden">
           <CardHeader className="flex flex-row items-start bg-muted/50">
             <div className="grid gap-0.5">
@@ -194,29 +176,19 @@ export default function OrdersPage() {
                   <span className="sr-only">Copy Pedido ID</span>
                 </Button>
               </CardTitle>
-              <CardDescription>Data: 19 Setembro, 2024</CardDescription>
+              <CardDescription className="flex items-center text-muted-foreground">
+                Avaliação:
+                <span className="ml-2">{(4).toFixed(1)}</span>
+                {renderStars(4)}
+              </CardDescription>
             </div>
             <div className="ml-auto flex items-center gap-1">
               <Button size="sm" variant="outline" className="h-8 gap-1">
-                <Truck className="h-3.5 w-3.5" />
+                <Star className="h-3.5 w-3.5" />
                 <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-                  Acompanhar pedido
+                  Avaliar pedido
                 </span>
               </Button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="icon" variant="outline" className="h-8 w-8">
-                    <MoreVertical className="h-3.5 w-3.5" />
-                    <span className="sr-only">More</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem>Editar</DropdownMenuItem>
-                  <DropdownMenuItem>Exportar</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>Excluir</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
             </div>
           </CardHeader>
           <CardContent className="p-6 text-sm">
@@ -313,22 +285,6 @@ export default function OrdersPage() {
             <div className="text-xs text-muted-foreground">
               Atualizado <time dateTime="2024-09-19">19 de Setembro, 2024</time>
             </div>
-            <Pagination className="ml-auto mr-0 w-auto">
-              <PaginationContent>
-                <PaginationItem>
-                  <Button size="icon" variant="outline" className="h-6 w-6">
-                    <ChevronLeft className="h-3.5 w-3.5" />
-                    <span className="sr-only">Previous Pedido</span>
-                  </Button>
-                </PaginationItem>
-                <PaginationItem>
-                  <Button size="icon" variant="outline" className="h-6 w-6">
-                    <ChevronRight className="h-3.5 w-3.5" />
-                    <span className="sr-only">Next Pedido</span>
-                  </Button>
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
           </CardFooter>
         </Card>
       </div>
