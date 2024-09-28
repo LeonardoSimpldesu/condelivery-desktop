@@ -2,9 +2,10 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import {
   Card,
-  CardContent, CardFooter,
+  CardContent,
+  CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card'
 import {
   Table,
@@ -18,11 +19,14 @@ import {
   Star,
   Search,
   ChevronLeft,
-  ChevronRight, MapPin,
+  ChevronRight,
+  MapPin,
   Globe,
   BadgeInfo,
   Quote,
-  MoreHorizontal
+  MoreHorizontal,
+  CircleUser,
+  Package,
 } from 'lucide-react'
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
@@ -36,25 +40,16 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel, DropdownMenuTrigger
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
 export default function CollaboratorsPage() {
-  const renderStars = (rating: number) => {
-    return Array(5)
-      .fill(0)
-      .map((_, i) => (
-        <Star
-          key={i}
-          className={`h-4 w-4 ${i < Math.floor(rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
-        />
-      ))
-  }
   return (
-    <main className="container w-full mx-auto pt-4 grid grid-cols-3 gap-6">
-      <Card className="col-span-2">
+    <main className="container w-full mx-auto pt-4 grid lg:grid-cols-3 gap-6">
+      <Card className="lg:col-span-2 h-fit">
         <CardContent>
-          <div className="flex gap-4 py-6">
+          <div className="flex flex-col sm:flex-row gap-4 py-6">
             <Input
               placeholder="Pesquisar por nome ou endereço"
               className="flex-grow"
@@ -72,16 +67,16 @@ export default function CollaboratorsPage() {
                 </TableHead>
                 <TableHead>Nome</TableHead>
                 <TableHead>Avaliação</TableHead>
-                <TableHead>Destaque</TableHead>
-                <TableHead>Tempo na Plataforma</TableHead>
-                <TableHead>Endereço</TableHead>
+                <TableHead className="hidden sm:table-cell">Destaque</TableHead>
+                <TableHead className="hidden xl:table-cell">Conosco à</TableHead>
+                <TableHead className="hidden sm:table-cell">Serviços</TableHead>
                 <TableHead>
                   <span className="sr-only">Actions</span>
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {Array.from({ length: 5 }).map((_, index) => (
+              {Array.from({ length: 6 }).map((_, index) => (
                 <TableRow key={index}>
                   <TableCell className="hidden sm:table-cell">
                     <Image
@@ -96,42 +91,32 @@ export default function CollaboratorsPage() {
                     João Tranquilino
                   </TableCell>
                   <TableCell>
-                    <div className="flex items-center">
-                      {renderStars(4)}
+                    <div className="flex gap-1 items-center">
                       <span className="ml-2">{(4).toFixed(1)}</span>
+                      <Star size={16} className='text-yellow-400 fill-yellow-400'/>
                     </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="hidden sm:table-cell">
                     <Badge>Atencioso</Badge>
                   </TableCell>
-                  <TableCell>2 anos</TableCell>
-                  <TableCell>Rua são jose da lapa</TableCell>
+                  <TableCell className="hidden xl:table-cell">2 anos</TableCell>
+                  <TableCell className="hidden sm:table-cell">
+                    <p className='flex items-center gap-1'>
+                    <span><Package size={16}/></span>
+                    745
+                    </p>
+                    </TableCell>
                   <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          aria-haspopup="true"
-                          size="icon"
-                          variant="ghost"
-                        >
-                          <MoreHorizontal className="h-4 w-4" />
-                          <span className="sr-only">Toggle menu</span>
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Ações</DropdownMenuLabel>
-                        <DropdownMenuItem>Detalhes</DropdownMenuItem>
-                        <DropdownMenuItem>Conversar</DropdownMenuItem>
-                        <DropdownMenuItem>Contratar</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    <div className="ml-auto w-fit h-fit bg-primary p-2 rounded-full">
+                      <CircleUser className="text-white" />
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </CardContent>
-        <CardFooter>
+        <CardFooter className=''>
           <div className="text-xs text-muted-foreground">
             Mostrando <strong>1-10</strong> of <strong>32</strong> moradores
           </div>
@@ -194,7 +179,7 @@ export default function CollaboratorsPage() {
           <Separator />
           <div className="">
             <h3 className="text-xl font-semibold">Destaques do colaborador</h3>
-            <div className="flex gap-4 mt-4">
+            <div className="flex flex-wrap gap-4 mt-4">
               <Badge>Esforçado</Badge>
               <Badge>Pontual</Badge>
               <Badge>Simpático</Badge>
