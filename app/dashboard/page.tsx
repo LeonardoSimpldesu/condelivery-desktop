@@ -16,7 +16,7 @@ import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
 import { OrderDetailsModal } from '@/components/pages/dashboard/order-details-modal'
 import { CollaboratorsDetailsModal } from '@/components/pages/dashboard/collaborator-details-modal'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { api } from '../../api/api.js'
 
 const policies = [
@@ -33,45 +33,27 @@ const policies = [
   },
 ]
 
-export default async function DashboardPage() {
+export default function DashboardPage() {
 
+  const [dashboard, setDashboard] = useState<any>();
 
   async function getDashboardData() {
-    console.log('entrei')
     const { data } = await api.get("/get-order");
-    console.log(data);
 
+    if (data) {
+      setDashboard(data);
+    }
 
-    // if (data) {
-    //     setHome(data);
-    // }
   }
 
   useEffect(() => {
 
     getDashboardData();
-    // const getData = async () => {
-
-    //   console.log("entrei no método");
-
-    //   try {
-    //     const response = await fetch("http://localhost:3333/get-order");
-
-    //     if (!response.ok) {
-    //       throw new Error(`Response status: ${response.status}`);
-    //     }
-
-    //     const json = await response.json();
-    //     console.log("peguei da API", json);
-
-    //   } catch (error: any) {
-    //     console.error(error.message);
-    //   }
-    // }
-
-    // getData();
 
   }, [])
+
+  console.log(dashboard)
+
 
 
   const renderStars = (rating: number) => {
@@ -150,7 +132,7 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent className="grid sm:grid-cols-2 gap-4">
             {/*  */}
-            {Array.from({ length: 2 }).map((_, index) => (
+            {dashboard?.map((item: any, index: any) => (
               <Card className="min-w-fit overflow-hidden" key={index}>
                 <CardContent className="grid grid-cols-4 items-center gap-4 py-4">
                   <div className="flex items-center gap-2 col-span-3">
@@ -162,9 +144,9 @@ export default async function DashboardPage() {
                       width="64"
                     />
                     <div className="">
-                      <div className="font-medium">Pedido #1456</div>
+                      <div className="font-medium">Pedido {item?.code}</div>
                       <div className="hidden text-sm text-muted-foreground md:inline">
-                        IFood - Restaurante Sabor Caseiro
+                        {item?.description}
                       </div>
                     </div>
                   </div>
@@ -175,72 +157,10 @@ export default async function DashboardPage() {
                   </OrderDetailsModal>
                 </CardContent>
                 <CardFooter className="p-0 py-1 bg-red-500">
-                  <p className="mx-auto font-semibold text-white">Em rota</p>
+                  <p className="mx-auto font-semibold text-white">{item?.status}</p>
                 </CardFooter>
               </Card>
             ))}
-            {Array.from({ length: 2 }).map((_, index) => (
-              <Card className="min-w-fit overflow-hidden" key={index}>
-                <CardContent className="grid grid-cols-4 items-center gap-4 py-4">
-                  <div className="flex items-center gap-2 col-span-3">
-                    <Image
-                      alt="Product image"
-                      className="aspect-square rounded-md object-cover"
-                      height="64"
-                      src="/bag.png"
-                      width="64"
-                    />
-                    <div className="">
-                      <div className="font-medium">Pedido #1456</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        IFood - Restaurante Sabor Caseiro
-                      </div>
-                    </div>
-                  </div>
-                  <OrderDetailsModal>
-                    <button className="ml-auto bg-primary p-2 rounded-full">
-                      <Package className="text-white" />
-                    </button>
-                  </OrderDetailsModal>
-                </CardContent>
-                <CardFooter className="p-0 py-1 bg-yellow-500">
-                  <p className="mx-auto font-semibold text-white">
-                    Aguardando Avaliação
-                  </p>
-                </CardFooter>
-              </Card>
-            ))}
-
-            {Array.from({ length: 2 }).map((_, index) => (
-              <Card className="min-w-fit overflow-hidden" key={index}>
-                <CardContent className="grid grid-cols-4 items-center gap-4 py-4">
-                  <div className="flex items-center gap-2 col-span-3">
-                    <Image
-                      alt="Product image"
-                      className="aspect-square rounded-md object-cover"
-                      height="64"
-                      src="/bag.png"
-                      width="64"
-                    />
-                    <div className="">
-                      <div className="font-medium">Pedido #1456</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        IFood - Restaurante Sabor Caseiro
-                      </div>
-                    </div>
-                  </div>
-                  <OrderDetailsModal>
-                    <button className="ml-auto bg-primary p-2 rounded-full">
-                      <Package className="text-white" />
-                    </button>
-                  </OrderDetailsModal>
-                </CardContent>
-                <CardFooter className="p-0 py-1 bg-green-500">
-                  <p className="mx-auto font-semibold text-white">Finalizado</p>
-                </CardFooter>
-              </Card>
-            ))}
-
             {/*  */}
           </CardContent>
         </Card>
