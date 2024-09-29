@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import { ArrowUpRight, ChevronRight, Package, Star } from 'lucide-react'
 
@@ -15,6 +16,8 @@ import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
 import { OrderDetailsModal } from '@/components/pages/dashboard/order-details-modal'
 import { CollaboratorsDetailsModal } from '@/components/pages/dashboard/collaborator-details-modal'
+import { useEffect, useState } from 'react'
+import { api } from '../../api/api.js'
 import { Collaborator } from '@/components/pages/dashboard/collaborator'
 import { Order } from '@/components/pages/dashboard/order'
 
@@ -33,6 +36,28 @@ const policies = [
 ]
 
 export default function DashboardPage() {
+
+  const [dashboard, setDashboard] = useState<any>();
+
+  async function getDashboardData() {
+    const { data } = await api.get("/get-order");
+
+    if (data) {
+      setDashboard(data);
+    }
+
+  }
+
+  useEffect(() => {
+
+    getDashboardData();
+
+  }, [])
+
+  console.log(dashboard)
+
+
+
   const renderStars = (rating: number) => {
     return Array(5)
       .fill(0)
@@ -98,9 +123,7 @@ export default function DashboardPage() {
             </div>
           </CardHeader>
           <CardContent className="grid sm:grid-cols-2 gap-4">
-            {/* começa aq */}
             <Order status='Avaliado'></Order>
-            {/* acaba aq */}
           </CardContent>
         </Card>
       </div>

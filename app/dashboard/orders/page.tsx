@@ -36,6 +36,26 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 export default function OrdersPage() {
+
+  // async function getData() {
+  //   const url = "http://localhost:3333/get-order";
+  //   try {
+  //     const response = await fetch(url);
+      
+  //     if (!response.ok) {
+  //       throw new Error(`Response status: ${response.status}`);
+  //     }
+
+  //     const json = await response.json();
+  //     console.log("peguei da API", json);
+
+  //   } catch (error: any) {
+  //     console.error(error.message);
+  //   }
+  // }
+
+  // getData();
+
   const renderStars = (rating: number) => {
     return Array(5)
       .fill(0)
