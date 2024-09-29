@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import { ArrowUpRight, ChevronRight, Package, Star } from 'lucide-react'
 
@@ -15,6 +16,8 @@ import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
 import { OrderDetailsModal } from '@/components/pages/dashboard/order-details-modal'
 import { CollaboratorsDetailsModal } from '@/components/pages/dashboard/collaborator-details-modal'
+import { useEffect } from 'react'
+import { api } from '../../api/api.js'
 
 const policies = [
   { id: 1, title: 'Horário de Entregas', description: 'Das 8h às 22h' },
@@ -30,7 +33,47 @@ const policies = [
   },
 ]
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+
+
+  async function getDashboardData() {
+    console.log('entrei')
+    const { data } = await api.get("/get-order");
+    console.log(data);
+
+
+    // if (data) {
+    //     setHome(data);
+    // }
+  }
+
+  useEffect(() => {
+
+    getDashboardData();
+    // const getData = async () => {
+
+    //   console.log("entrei no método");
+
+    //   try {
+    //     const response = await fetch("http://localhost:3333/get-order");
+
+    //     if (!response.ok) {
+    //       throw new Error(`Response status: ${response.status}`);
+    //     }
+
+    //     const json = await response.json();
+    //     console.log("peguei da API", json);
+
+    //   } catch (error: any) {
+    //     console.error(error.message);
+    //   }
+    // }
+
+    // getData();
+
+  }, [])
+
+
   const renderStars = (rating: number) => {
     return Array(5)
       .fill(0)
@@ -68,7 +111,7 @@ export default function DashboardPage() {
                   <Card className="min-w-fit overflow-hidden flex items-center gap-4 p-4 rounded-lg hover:bg-muted cursor-pointer">
                     <CardContent className="flex items-center gap-4 py-1 px-2">
                       <Avatar className="h-9 w-9 sm:flex">
-                        <AvatarImage src="/avatars/01.png" alt="Avatar" />
+                        <AvatarImage src="/avatar.png" alt="Avatar" />
                         <AvatarFallback>OM</AvatarFallback>
                       </Avatar>
                       <div className="grid gap-1">

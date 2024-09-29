@@ -39,6 +39,26 @@ export const description =
   'An pedidos dashboard with a sidebar navigation. The sidebar has icon navigation. The content area has a breadcrumb and search in the header. The main area has a list of recent pedidos with a filter and export button. The main area also has a detailed view of a single pedido with pedido details, shipping information, billing information, customer information, and payment information.'
 
 export default function OrdersPage() {
+
+  // async function getData() {
+  //   const url = "http://localhost:3333/get-order";
+  //   try {
+  //     const response = await fetch(url);
+      
+  //     if (!response.ok) {
+  //       throw new Error(`Response status: ${response.status}`);
+  //     }
+
+  //     const json = await response.json();
+  //     console.log("peguei da API", json);
+
+  //   } catch (error: any) {
+  //     console.error(error.message);
+  //   }
+  // }
+
+  // getData();
+
   const renderStars = (rating: number) => {
     return Array(5)
       .fill(0)
