@@ -47,7 +47,7 @@ export function Adresses() {
           </CardHeader>
           <CardContent>
             <div className="font-semibold">Informações do endereço</div>
-            <ul className="grid grid-cols-2">
+            <ul className="grid sm:grid-cols-2">
               <li className="flex items-center gap-2 text-sm">
                 <span className="text-foreground">Endereço:</span>
                 <span className="text-muted-foreground">
@@ -76,8 +76,8 @@ export function Adresses() {
               </li>
             </ul>
           </CardContent>
-          <CardFooter>
-            <Button variant={'link'} className="p-0 mr-8 text-blue-700">
+          <CardFooter className='flex flex-col sm:flex-row sm:gap-4'>
+            <Button variant={'link'} className="p-0 text-blue-700">
               Atualizar endereço
             </Button>
             <Button variant={'link'} className="p-0 text-destructive">
@@ -93,7 +93,7 @@ export function Adresses() {
             Cadastre um novo endereço para gerenciar onde serão suas entregas.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="flex flex-col lg:grid lg:grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2 col-span-2">
             <Label htmlFor="name">Come completo (nome e sobrenome)</Label>
             <Input id="name" name="name" />
@@ -102,13 +102,13 @@ export function Adresses() {
             <Label htmlFor="phone">Telefone</Label>
             <Input id="phone" name="phone" />
           </div>
-          <div className="space-y-2 col-span-2">
-            <Label htmlFor="endereco">Endereço</Label>
-            <Input id="endereco" name="endereco" />
-          </div>
           <div className="space-y-2">
             <Label htmlFor="cep">CEP</Label>
             <Input id="cep" name="cep" />
+          </div>
+          <div className="space-y-2 col-span-2">
+            <Label htmlFor="endereco">Endereço</Label>
+            <Input id="endereco" name="endereco" />
           </div>
           <div className="space-y-2 col-span-2">
             <Label htmlFor="city">Cidade</Label>
