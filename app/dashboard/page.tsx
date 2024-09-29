@@ -15,6 +15,8 @@ import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
 import { OrderDetailsModal } from '@/components/pages/dashboard/order-details-modal'
 import { CollaboratorsDetailsModal } from '@/components/pages/dashboard/collaborator-details-modal'
+import { Collaborator } from '@/components/pages/dashboard/collaborator'
+import { Order } from '@/components/pages/dashboard/order'
 
 const policies = [
   { id: 1, title: 'Horário de Entregas', description: 'Das 8h às 22h' },
@@ -64,29 +66,11 @@ export default function DashboardPage() {
           <CardContent className="flex flex-col sm:grid sm:grid-cols-2 gap-6 overflow-x-scroll custom-scroll xl:flex xl:flex-row">
             {Array.from({ length: 5 }).map((_, index) => {
               return (
-                <CollaboratorsDetailsModal key={index}>
-                  <Card className="min-w-fit overflow-hidden flex items-center gap-4 p-4 rounded-lg hover:bg-muted cursor-pointer">
-                    <CardContent className="flex items-center gap-4 py-1 px-2">
-                      <Avatar className="h-9 w-9 sm:flex">
-                        <AvatarImage src="/avatars/01.png" alt="Avatar" />
-                        <AvatarFallback>OM</AvatarFallback>
-                      </Avatar>
-                      <div className="grid gap-1">
-                        <p className="text-base font-bold leading-none">
-                          Leonardo de Souza
-                        </p>
-                        <p className="flex items-center text-muted-foreground">
-                          {renderStars(4)}
-                          <span className="ml-2">{(4).toFixed(1)}</span>
-                        </p>
-                      </div>
-                      <ChevronRight className="ml-auto font-medium hidden sm:block" />
-                    </CardContent>
-                  </Card>
-                </CollaboratorsDetailsModal>
+                <Collaborator key={index}></Collaborator>
               )
             })}
           </CardContent>
+
         </Card>
         <Card className="">
           <CardHeader className="flex">
@@ -106,99 +90,9 @@ export default function DashboardPage() {
             </div>
           </CardHeader>
           <CardContent className="grid sm:grid-cols-2 gap-4">
-            {/*  */}
-            {Array.from({ length: 2 }).map((_, index) => (
-              <Card className="min-w-fit overflow-hidden" key={index}>
-                <CardContent className="grid grid-cols-4 items-center gap-4 py-4">
-                  <div className="flex items-center gap-2 col-span-3">
-                    <Image
-                      alt="Product image"
-                      className="aspect-square rounded-md object-cover"
-                      height="64"
-                      src="/bag.png"
-                      width="64"
-                    />
-                    <div className="">
-                      <div className="font-medium">Pedido #1456</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        IFood - Restaurante Sabor Caseiro
-                      </div>
-                    </div>
-                  </div>
-                  <OrderDetailsModal>
-                    <button className="ml-auto bg-primary p-2 rounded-full">
-                      <Package className="text-white" />
-                    </button>
-                  </OrderDetailsModal>
-                </CardContent>
-                <CardFooter className="p-0 py-1 bg-red-500">
-                  <p className="mx-auto font-semibold text-white">Em rota</p>
-                </CardFooter>
-              </Card>
-            ))}
-            {Array.from({ length: 2 }).map((_, index) => (
-              <Card className="min-w-fit overflow-hidden" key={index}>
-                <CardContent className="grid grid-cols-4 items-center gap-4 py-4">
-                  <div className="flex items-center gap-2 col-span-3">
-                    <Image
-                      alt="Product image"
-                      className="aspect-square rounded-md object-cover"
-                      height="64"
-                      src="/bag.png"
-                      width="64"
-                    />
-                    <div className="">
-                      <div className="font-medium">Pedido #1456</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        IFood - Restaurante Sabor Caseiro
-                      </div>
-                    </div>
-                  </div>
-                  <OrderDetailsModal>
-                    <button className="ml-auto bg-primary p-2 rounded-full">
-                      <Package className="text-white" />
-                    </button>
-                  </OrderDetailsModal>
-                </CardContent>
-                <CardFooter className="p-0 py-1 bg-yellow-500">
-                  <p className="mx-auto font-semibold text-white">
-                    Aguardando Avaliação
-                  </p>
-                </CardFooter>
-              </Card>
-            ))}
-
-            {Array.from({ length: 2 }).map((_, index) => (
-              <Card className="min-w-fit overflow-hidden" key={index}>
-                <CardContent className="grid grid-cols-4 items-center gap-4 py-4">
-                  <div className="flex items-center gap-2 col-span-3">
-                    <Image
-                      alt="Product image"
-                      className="aspect-square rounded-md object-cover"
-                      height="64"
-                      src="/bag.png"
-                      width="64"
-                    />
-                    <div className="">
-                      <div className="font-medium">Pedido #1456</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        IFood - Restaurante Sabor Caseiro
-                      </div>
-                    </div>
-                  </div>
-                  <OrderDetailsModal>
-                    <button className="ml-auto bg-primary p-2 rounded-full">
-                      <Package className="text-white" />
-                    </button>
-                  </OrderDetailsModal>
-                </CardContent>
-                <CardFooter className="p-0 py-1 bg-green-500">
-                  <p className="mx-auto font-semibold text-white">Finalizado</p>
-                </CardFooter>
-              </Card>
-            ))}
-
-            {/*  */}
+            {/* começa aq */}
+            <Order status='Avaliado'></Order>
+            {/* acaba aq */}
           </CardContent>
         </Card>
       </div>

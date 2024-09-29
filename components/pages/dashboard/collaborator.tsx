@@ -6,7 +6,7 @@ import { CollaboratorsDetailsModal } from "./collaborator-details-modal"
 import { OrderDetailsModal } from "./order-details-modal"
 import Image from "next/image"
 
-export function Order (){
+export function Collaborator (){
     const renderStars = (rating: number) => {
         return Array(5)
           .fill(0)
@@ -17,7 +17,7 @@ export function Order (){
             />
           ))
       }
-      
+
     return (
         <CollaboratorsDetailsModal>
             <Card className="min-w-fit overflow-hidden flex items-center gap-4 p-4 rounded-lg hover:bg-muted cursor-pointer">

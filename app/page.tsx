@@ -32,7 +32,7 @@ export default function Home() {
           <div className="mt-4 lg:mt-0">
             <a href="#">
               <button className="w-[90px] lg:w-[110px] h-[42px] text-[14px] lg:text-[17px] text-[#E9EBF8] rounded-[10px] border-none bg-[#F46D1F] cursor-pointer">
-                Download
+                Entrar
               </button>
             </a>
           </div>
@@ -211,7 +211,7 @@ export default function Home() {
             experiência eficiente e direta!
           </h1>
           <button className="bg-white text-black font-bold py-2 px-4 rounded-md">
-            Download
+            Entrar
           </button>
         </div>
       </section>
