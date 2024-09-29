@@ -53,7 +53,11 @@ export default function DashboardPage() {
                   Colaboradores trabalhando neste momento
                 </CardDescription>
               </div>
-              <Button asChild size="sm" className="w-full mt-4 gap-1 sm:ml-auto sm:w-fit">
+              <Button
+                asChild
+                size="sm"
+                className="w-full mt-4 gap-1 sm:ml-auto sm:w-fit"
+              >
                 <Link href="/dashboard/collaborators">
                   Ver todos
                   <ArrowUpRight className="h-4 w-4" />
@@ -97,7 +101,11 @@ export default function DashboardPage() {
                   Pedidos realizados no dia de hoje
                 </CardDescription>
               </div>
-              <Button asChild size="sm" className="w-full mt-4 gap-1 sm:ml-auto sm:w-fit">
+              <Button
+                asChild
+                size="sm"
+                className="w-full mt-4 gap-1 sm:ml-auto sm:w-fit"
+              >
                 <Link href="/dashboard/orders">
                   Ver todos
                   <ArrowUpRight className="h-4 w-4" />
