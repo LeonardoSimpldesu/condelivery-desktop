@@ -9,22 +9,22 @@ import Link from 'next/link'
 
 export default function RegisterPage() {
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen xl:h-screen">
       <Image
         alt="Homem realizando uma entrega"
-        className="hidden flex-1 object-cover object-right lg:block"
+        className="hidden object-cover object-right lg:block w-1/2 2xl:w-3/4"
         height="1920"
         src="/auth/register.png"
         width="1920"
       />
-      <div className="flex flex-col py-20 items-center justify-between w-1/4">
+      <div className="flex flex-col w-full py-20 items-center justify-between 2xl:w-1/4">
         <div className="text-center flex-1">
           <h3 className="font-bold text-lg mb-10">Cadastre-se</h3>
           <h2 className="font-bold text-4xl">CONDELIVERY</h2>
         </div>
 
-        <div className="flex flex-col w-full px-12">
-          <div className="grid grid-cols-2 gap-2 mb-4">
+        <div className="flex flex-col flex-1 w-full px-8 sm:px-12">
+          <div className="flex flex-col sm:grid sm:grid-cols-2 gap-2 mb-4">
             <div className="">
               <Label>Nome</Label>
               <Input />
@@ -64,10 +64,10 @@ export default function RegisterPage() {
             <SecondaryButton>Google</SecondaryButton>
             <SecondaryButton>Facebook</SecondaryButton>
             <Link
-              href={'auth/forgot-password'}
+              href={'/auth'}
               className="text-center flex-1 mt-10 text-blue-700"
             >
-              Já possui uma conta? <span className="underline">Entre aqui</span>
+              Já possui uma conta? <span className="underline">Entrar</span>
             </Link>
           </div>
         </div>

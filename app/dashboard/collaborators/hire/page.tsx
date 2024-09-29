@@ -25,8 +25,7 @@ import {
   Globe,
   BadgeInfo,
   Quote, CircleUser,
-  Package,
-  Plus
+  Package, ArrowUpRight
 } from 'lucide-react'
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
@@ -38,20 +37,20 @@ import {
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
 
-export default function CollaboratorsPage() {
+export default function CollaboratorsHirePage() {
   return (
     <main className="container w-full mx-auto pt-4 grid lg:grid-cols-3 gap-6">
       <Card className="lg:col-span-2 h-fit">
         <CardHeader className='flex'>
           <div className="flex flex-col items-center mb-2 sm:flex-row">
               <div className="grid gap-2">
-              <CardTitle>Colaboradores Contratados</CardTitle>
-              <CardDescription>Estes são os colaboradores que estão contratados em seu condomínio</CardDescription>
+              <CardTitle>Contratar Colaboradores</CardTitle>
+              <CardDescription>Estes são os colaboradores disponíveis para serem contratados</CardDescription>
               </div>
-              <Button variant={'outline'} asChild size="sm" className="w-full mt-4 gap-1 sm:ml-auto sm:mr-4 sm:w-fit">
-                <Link href="/dashboard/collaborators/hire">
-                  Contratar novos colaboradores
-                  <Plus className="h-4 w-4" />
+              <Button asChild size="sm" className="w-full mt-4 gap-1 sm:ml-auto sm:w-fit sm:mt-0">
+                <Link href="/dashboard/collaborators">
+                  Meus Colaboradores
+                  <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </Button>
             </div>
