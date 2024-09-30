@@ -1,26 +1,6 @@
 import { Separator } from '@/components/ui/separator'
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-} from '@/components/ui/pagination'
 import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu'
-import {
-  Copy,
-  Truck,
-  MoreVertical,
-  ChevronLeft,
-  ChevronRight,
-  CreditCard,
-  Star,
-} from 'lucide-react'
+import { Copy, CreditCard, Star } from 'lucide-react'
 import {
   Dialog,
   DialogContent,
@@ -30,11 +10,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
+import { api } from '@/api/api'
 
 export function OrderDetailsModal({
   children,
+  orderCode,
 }: Readonly<{
   children: React.ReactNode
+  orderCode: string
 }>) {
   const renderStars = (rating: number) => {
     return Array(5)
@@ -45,6 +37,14 @@ export function OrderDetailsModal({
           className={`h-4 w-4 ${i < Math.floor(rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
         />
       ))
+  }
+
+  function formSubmit(e) {
+    api.post('/create-rating', {
+      order_code: orderCode,
+      rating: Number(e.get('rate')),
+      recommendations: e.get('recomendation'),
+    })
   }
   return (
     <Dialog>
@@ -72,12 +72,39 @@ export function OrderDetailsModal({
             </DialogDescription>
           </div>
           <div className="ml-auto flex items-center gap-1">
-            <Button size="sm" variant="outline" className="h-8 gap-1">
-              <Star className="h-3.5 w-3.5" />
-              <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-                Avaliar pedido
-              </span>
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size="sm" variant="outline" className="h-8 gap-1">
+                  <Star className="h-3.5 w-3.5" />
+                  <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
+                    Avaliar pedido
+                  </span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Avaliar pedido</CardTitle>
+                    <CardDescription>
+                      Coloque um valor entre 1 e 5 para avaliar o pedido
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <form className="space-y-4" action={formSubmit}>
+                      <div className="space-y-2">
+                        <Label htmlFor="rate">Avalição</Label>
+                        <Input name="rate" id="rate" type="number" />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="recomendation">Recomendação</Label>
+                        <Input name="recomendation" id="recomendation" />
+                      </div>
+                      <Button className="w-full">Avaliar</Button>
+                    </form>
+                  </CardContent>
+                </Card>
+              </DialogContent>
+            </Dialog>
           </div>
         </DialogHeader>
         <div className="p-6 text-sm">

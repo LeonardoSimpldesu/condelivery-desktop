@@ -1,5 +1,4 @@
-import { CondominiumCard } from '@/components/pages/condominium/condominium-card'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+'use client'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -25,43 +24,45 @@ import {
   DropdownMenuLabel,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
-import { ArrowUpRight, ChevronRight, MoreHorizontal, Plus, Star } from 'lucide-react'
+import { ArrowUpRight, MoreHorizontal, Plus } from 'lucide-react'
 import Image from 'next/image'
 import { CondominiumDialog } from '@/components/pages/condominium/condominium-dialog'
 import Link from 'next/link'
 import { Separator } from '@/components/ui/separator'
-import { CollaboratorsDetailsModal } from '@/components/pages/dashboard/collaborator-details-modal'
 import { CondominiumPolicyDialog } from '@/components/pages/condominium/condominium-policy-dialog'
+import { useEffect, useState } from 'react'
+import { api } from '@/api/api'
+import { Collaborator } from '@/components/pages/dashboard/collaborator'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 export default function CondominiumPage() {
-  const renderStars = (rating: number) => {
-    return Array(5)
-      .fill(0)
-      .map((_, i) => (
-        <Star
-          key={i}
-          className={`h-4 w-4 ${i < Math.floor(rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
-        />
-      ))
+  const [order, setOrder] = useState(null)
+  const [policies, setPolicy] = useState(null)
+
+  async function getOrderData() {
+    const { data } = await api.get('/get-order')
+
+    if (data) {
+      setOrder(data)
+    }
   }
-  const policies = [
-    { id: 1, title: 'Horário de Entregas', description: 'Das 8h às 22h' },
-    {
-      id: 2,
-      title: 'Acesso de Entregadores',
-      description: 'Somente com autorização prévia',
-    },
-    {
-      id: 3,
-      title: 'Uso do Elevador de Serviço',
-      description: 'Obrigatório para todas as entregas',
-    },
-  ]
+  async function getPolicyData() {
+    const { data } = await api.get('/get-policies')
+
+    if (data) {
+      setPolicy(data)
+    }
+  }
+
+  useEffect(() => {
+    getOrderData()
+    getPolicyData()
+  }, [])
 
   return (
     <main className="container mx-auto grid gap-6 w-full lg:grid-cols-3">
       <div className="lg:col-span-2">
-      <Card className="mb-4">
+        <Card className="mb-4">
           <CardHeader className="flex">
             <div className="flex flex-col items-center mb-2 sm:flex-row">
               <div className="grid gap-2">
@@ -70,7 +71,12 @@ export default function CondominiumPage() {
                   Colaboradores trabalhando neste condomínio
                 </CardDescription>
               </div>
-              <Button variant={'outline'} asChild size="sm" className="w-full mt-4 gap-1 sm:ml-auto sm:mr-4 sm:w-fit">
+              <Button
+                variant={'outline'}
+                asChild
+                size="sm"
+                className="w-full mt-4 gap-1 sm:ml-auto sm:mr-4 sm:w-fit"
+              >
                 <Link href="/dashboard/collaborators/hire">
                   Contratar novos colaboradores
                   <Plus className="h-4 w-4" />
@@ -85,30 +91,16 @@ export default function CondominiumPage() {
             </div>
           </CardHeader>
           <CardContent className="flex flex-col sm:grid sm:grid-cols-2 gap-6 overflow-x-scroll custom-scroll xl:flex xl:flex-row">
-            {Array.from({ length: 5 }).map((_, index) => {
-              return (
-                <CollaboratorsDetailsModal key={index}>
-                  <Card className="min-w-fit overflow-hidden flex items-center gap-4 p-4 rounded-lg hover:bg-muted cursor-pointer">
-                    <CardContent className="flex items-center gap-4 py-1 px-2">
-                      <Avatar className="h-9 w-9 sm:flex">
-                        <AvatarImage src="/avatars/01.png" alt="Avatar" />
-                        <AvatarFallback>OM</AvatarFallback>
-                      </Avatar>
-                      <div className="grid gap-1">
-                        <p className="text-base font-bold leading-none">
-                          Leonardo de Souza
-                        </p>
-                        <p className="flex items-center text-muted-foreground">
-                          {renderStars(4)}
-                          <span className="ml-2">{(4).toFixed(1)}</span>
-                        </p>
-                      </div>
-                      <ChevronRight className="ml-auto font-medium hidden sm:block" />
-                    </CardContent>
-                  </Card>
-                </CollaboratorsDetailsModal>
-              )
-            })}
+            {order != null
+              ? order.map((order) => {
+                  return (
+                    <Collaborator
+                      collaborator={order.collaborator}
+                      key={order.collaboratorId}
+                    ></Collaborator>
+                  )
+                })
+              : ''}
           </CardContent>
         </Card>
         <Card className="">
@@ -134,7 +126,9 @@ export default function CondominiumPage() {
                       </TableHead>
                       <TableHead>Morador</TableHead>
                       <TableHead>Apartamento</TableHead>
-                      <TableHead className='hidden sm:table-cell'>Profissão</TableHead>
+                      <TableHead className="hidden sm:table-cell">
+                        Profissão
+                      </TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -194,61 +188,69 @@ export default function CondominiumPage() {
       </div>
       <div className="flex flex-col gap-4">
         <Card className="">
-        <CondominiumDialog>
-        <CardHeader className="flex flex-row items-start rounded-t-lg bg-muted/50 p-0 overflow-hidden cursor-pointer">
-          <Image
-            alt="Product image"
-            className="aspect-video object-cover"
-            height="1920"
-            src="/dashboard/condominio.png"
-            width="1920"
-            />
-        </CardHeader>
-        </CondominiumDialog>
-        <CardContent className="p-6 text-sm">
-          <div className="">
-            <CardTitle>Residência das Flores</CardTitle>
-            <CardDescription>
-              Condominío com 4 blocos e 70 apartamentos
-            </CardDescription>
-          </div>
-          <Separator className="my-4" />
-          <div className="grid gap-3">
-            <div className="font-semibold">Políticas do Condomínio</div>
-            <dl className="grid gap-3">
-              {policies.map((policy) => (
-                <div key={policy.id} className="flex flex-col">
-                  <dt className="text-muted-foreground">{policy.title}</dt>
-                  <dd>{policy.description}</dd>
-                </div>
-              ))}
-            </dl>
-            <CondominiumPolicyDialog>
-              <Button size="sm" className="w-full mt-4 gap-1">
+          <CondominiumDialog>
+            <CardHeader className="flex flex-row items-start rounded-t-lg bg-muted/50 p-0 overflow-hidden cursor-pointer">
+              <Image
+                alt="Product image"
+                className="aspect-video object-cover"
+                height="1920"
+                src="/dashboard/condominio.png"
+                width="1920"
+              />
+            </CardHeader>
+          </CondominiumDialog>
+          <CardContent className="p-6 text-sm">
+            <div className="">
+              <CardTitle>Residência das Flores</CardTitle>
+              <CardDescription>
+                Condominío com 4 blocos e 70 apartamentos
+              </CardDescription>
+            </div>
+            <Separator className="my-4" />
+            <div className="grid gap-3">
+              <div className="font-semibold">Políticas do Condomínio</div>
+              <ScrollArea className="h-40">
+                <dl className="grid gap-3">
+                  {policies != null
+                    ? policies.policies.map((policy) => {
+                        return (
+                          <div key={policy.id} className="flex flex-col">
+                            <dt className="text-muted-foreground">
+                              {policy.title}
+                            </dt>
+                            <dd>{policy.description}</dd>
+                          </div>
+                        )
+                      })
+                    : ''}
+                </dl>
+              </ScrollArea>
+              <CondominiumPolicyDialog>
+                <Button size="sm" className="w-full mt-4 gap-1">
                   Adicionar nova política
                   <Plus className="h-4 w-4" />
-              </Button>
-            </CondominiumPolicyDialog>
-          </div>
-          <Separator className="my-4" />
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="grid gap-3">
-              <div className="font-semibold">Informações de transporte</div>
-              <address className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>João Tranquilo</span>
-                <span>568 Rua Maria Efigênia</span>
-                <span>São Paulo, SP 0000-00</span>
-              </address>
+                </Button>
+              </CondominiumPolicyDialog>
             </div>
-            <div className="grid auto-rows-max gap-3">
-              <div className="font-semibold">Endereço de cobrança</div>
-              <div className="text-muted-foreground">
-                Mesmo endereço de entrega
+            <Separator className="my-4" />
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid gap-3">
+                <div className="font-semibold">Informações de transporte</div>
+                <address className="grid gap-0.5 not-italic text-muted-foreground">
+                  <span>João Tranquilo</span>
+                  <span>568 Rua Maria Efigênia</span>
+                  <span>São Paulo, SP 0000-00</span>
+                </address>
+              </div>
+              <div className="grid auto-rows-max gap-3">
+                <div className="font-semibold">Endereço de cobrança</div>
+                <div className="text-muted-foreground">
+                  Mesmo endereço de entrega
+                </div>
               </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
       </div>
     </main>
   )

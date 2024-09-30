@@ -1,3 +1,4 @@
+'use client'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import {
@@ -24,8 +25,10 @@ import {
   MapPin,
   Globe,
   BadgeInfo,
-  Quote, CircleUser,
-  Package, ArrowUpRight
+  Quote,
+  CircleUser,
+  Package,
+  ArrowUpRight,
 } from 'lucide-react'
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
@@ -36,24 +39,48 @@ import {
 } from '@/components/ui/pagination'
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { api } from '@/api/api'
 
 export default function CollaboratorsHirePage() {
+  const [order, setOrder] = useState(null)
+
+  async function getOrderData() {
+    const { data } = await api.get('/get-order')
+
+    if (data) {
+      setOrder(data)
+    }
+  }
+
+  useEffect(() => {
+    getOrderData()
+  }, [])
+
+  console.log(order)
+
   return (
     <main className="container w-full mx-auto pt-4 grid lg:grid-cols-3 gap-6">
       <Card className="lg:col-span-2 h-fit">
-        <CardHeader className='flex'>
+        <CardHeader className="flex">
           <div className="flex flex-col items-center mb-2 sm:flex-row">
-              <div className="grid gap-2">
+            <div className="grid gap-2">
               <CardTitle>Contratar Colaboradores</CardTitle>
-              <CardDescription>Estes são os colaboradores disponíveis para serem contratados</CardDescription>
-              </div>
-              <Button asChild size="sm" className="w-full mt-4 gap-1 sm:ml-auto sm:w-fit sm:mt-0">
-                <Link href="/dashboard/collaborators">
-                  Meus Colaboradores
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
-              </Button>
+              <CardDescription>
+                Estes são os colaboradores disponíveis para serem contratados
+              </CardDescription>
             </div>
+            <Button
+              asChild
+              size="sm"
+              className="w-full mt-4 gap-1 sm:ml-auto sm:w-fit sm:mt-0"
+            >
+              <Link href="/dashboard/collaborators">
+                Meus Colaboradores
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col sm:flex-row gap-4 pb-6">
@@ -75,7 +102,9 @@ export default function CollaboratorsHirePage() {
                 <TableHead>Nome</TableHead>
                 <TableHead>Avaliação</TableHead>
                 <TableHead className="hidden sm:table-cell">Função</TableHead>
-                <TableHead className="hidden xl:table-cell">Conosco à</TableHead>
+                <TableHead className="hidden xl:table-cell">
+                  Conosco à
+                </TableHead>
                 <TableHead className="hidden sm:table-cell">Serviços</TableHead>
                 <TableHead>
                   <span className="sr-only">Actions</span>
@@ -83,47 +112,58 @@ export default function CollaboratorsHirePage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {Array.from({ length: 6 }).map((_, index) => (
-                <TableRow key={index}>
-                  <TableCell className="hidden sm:table-cell">
-                    <Image
-                      alt="Product image"
-                      className="aspect-square rounded-md object-cover"
-                      height="50"
-                      src="/avatar.png"
-                      width="50"
-                    />
-                  </TableCell>
-                  <TableCell className="font-medium">
-                    João Tranquilino
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex gap-1 items-center">
-                      <span className="ml-2">{(4).toFixed(1)}</span>
-                      <Star size={16} className='text-yellow-400 fill-yellow-400'/>
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden sm:table-cell">
-                    Sorveteiro
-                  </TableCell>
-                  <TableCell className="hidden xl:table-cell">2 anos</TableCell>
-                  <TableCell className="hidden sm:table-cell">
-                    <p className='flex items-center gap-1'>
-                    <span><Package size={16}/></span>
-                    745
-                    </p>
-                    </TableCell>
-                  <TableCell>
-                    <div className="ml-auto w-fit h-fit bg-primary p-2 rounded-full">
-                      <CircleUser className="text-white" />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {order != null
+                ? order.map((order) => (
+                    <TableRow key={order.id}>
+                      <TableCell className="hidden sm:table-cell">
+                        <Image
+                          alt="Product image"
+                          className="aspect-square rounded-md object-cover"
+                          height="50"
+                          src="/avatar.png"
+                          width="50"
+                        />
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        {order.collaborator.name}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-1 items-center">
+                          <span className="ml-2">
+                            {order.collaborator.mediaRating.toFixed(1)}
+                          </span>
+                          <Star
+                            size={16}
+                            className="text-yellow-400 fill-yellow-400"
+                          />
+                        </div>
+                      </TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        {order.collaborator.servicesProvided.split(';')[0]}
+                      </TableCell>
+                      <TableCell className="hidden xl:table-cell">
+                        {order.collaborator.operatingTimeInMonths} meses
+                      </TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        <p className="flex items-center gap-1">
+                          <span>
+                            <Package size={16} />
+                          </span>
+                          {order.collaborator.countDeliveries}
+                        </p>
+                      </TableCell>
+                      <TableCell>
+                        <div className="ml-auto w-fit h-fit bg-primary p-2 rounded-full">
+                          <CircleUser className="text-white" />
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                : ''}
             </TableBody>
           </Table>
         </CardContent>
-        <CardFooter className=''>
+        <CardFooter className="">
           <div className="text-xs text-muted-foreground">
             Mostrando <strong>1-10</strong> of <strong>32</strong> moradores
           </div>

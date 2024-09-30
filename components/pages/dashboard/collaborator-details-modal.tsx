@@ -27,8 +27,10 @@ import Image from 'next/image'
 
 export function CollaboratorsDetailsModal({
   children,
+  collaborator,
 }: Readonly<{
   children: React.ReactNode
+  collaborator: unknown
 }>) {
   return (
     <Dialog>
@@ -45,21 +47,25 @@ export function CollaboratorsDetailsModal({
               src="/avatar.png"
               width="64"
             />
-            <h2 className="text-2xl font-light">Tranquilino</h2>
+            <h2 className="text-2xl font-light">{collaborator.name}</h2>
           </div>
           <div className="w-full grid grid-cols-3">
             <div className="flex flex-col justify-center items-center">
-              <p className="text-2xl font-medium">745</p>
+              <p className="text-2xl font-medium">
+                {collaborator.countDeliveries}
+              </p>
               <p className="text-muted-foreground">Serviços</p>
             </div>
             <div className="flex flex-col justify-center items-center">
               <p className="flex items-center gap-2 text-2xl font-medium">
-                4.56 <Star fill="true" size={16} />
+                {collaborator.mediaRating} <Star fill="true" size={16} />
               </p>
               <p className="text-muted-foreground">Avaliação</p>
             </div>
             <div className="flex flex-col justify-center items-center">
-              <p className="text-2xl font-medium">24</p>
+              <p className="text-2xl font-medium">
+                {collaborator.operatingTimeInMonths}
+              </p>
               <p className="text-muted-foreground">Meses</p>
             </div>
           </div>
@@ -68,32 +74,33 @@ export function CollaboratorsDetailsModal({
           <div className="flex items-center gap-4">
             <Globe size={32} strokeWidth={1} />
             <p className="">
-              Fala <strong>português</strong>
+              Fala <strong>{collaborator.languages}</strong>
             </p>
           </div>
           <Separator />
           <div className="flex items-center gap-4">
             <MapPin size={32} strokeWidth={1} />
             <p className="">
-              De <strong>São Paulo</strong>
+              De <strong>{collaborator.local}</strong>
             </p>
           </div>
           <Separator />
           <div className="flex items-center gap-4">
             <BadgeInfo size={32} strokeWidth={1} />
             <p className="">
-              Outros serviços <strong>sorveteiro</strong>,{' '}
-              <strong>desenvolvedor</strong>, <strong>modelo</strong>
+              Outros serviços{' '}
+              {collaborator.servicesProvided.split(';').map((value: string) => (
+                <strong key={value}>{value}, </strong>
+              ))}
             </p>
           </div>
           <Separator />
           <div className="">
             <h3 className="text-xl font-semibold">Destaques do colaborador</h3>
             <div className="flex gap-4 mt-4">
-              <Badge>Esforçado</Badge>
-              <Badge>Pontual</Badge>
-              <Badge>Simpático</Badge>
-              <Badge>Ótimo papo</Badge>
+              {collaborator.tags.split(';').map((value: string) => (
+                <Badge key={value}>{value}</Badge>
+              ))}
             </div>
           </div>
           <Separator />

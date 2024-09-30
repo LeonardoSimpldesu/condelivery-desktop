@@ -1,21 +1,17 @@
 'use client'
 import Link from 'next/link'
-import { ArrowUpRight, ChevronRight, Package, Star } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
 import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
-import { OrderDetailsModal } from '@/components/pages/dashboard/order-details-modal'
-import { CollaboratorsDetailsModal } from '@/components/pages/dashboard/collaborator-details-modal'
 import { useEffect, useState } from 'react'
 import { api } from '../../api/api.js'
 import { Collaborator } from '@/components/pages/dashboard/collaborator'
@@ -36,38 +32,22 @@ const policies = [
 ]
 
 export default function DashboardPage() {
-
-  const [dashboard, setDashboard] = useState<any>();
+  const [dashboard, setDashboard] = useState(null)
 
   async function getDashboardData() {
-    const { data } = await api.get("/get-order");
+    const { data } = await api.get('/get-order')
 
     if (data) {
-      setDashboard(data);
+      setDashboard(data)
     }
-
   }
 
   useEffect(() => {
-
-    getDashboardData();
-
+    getDashboardData()
   }, [])
 
-  console.log(dashboard)
+  console.log(process.env)
 
-
-
-  const renderStars = (rating: number) => {
-    return Array(5)
-      .fill(0)
-      .map((_, i) => (
-        <Star
-          key={i}
-          className={`h-4 w-4 ${i < Math.floor(rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
-        />
-      ))
-  }
   return (
     <main className="container mx-auto grid gap-4 xl:grid-cols-3">
       <div className="xl:col-span-2">
@@ -93,13 +73,17 @@ export default function DashboardPage() {
             </div>
           </CardHeader>
           <CardContent className="flex flex-col sm:grid sm:grid-cols-2 gap-6 overflow-x-scroll custom-scroll xl:flex xl:flex-row">
-            {Array.from({ length: 5 }).map((_, index) => {
-              return (
-                <Collaborator key={index}></Collaborator>
-              )
-            })}
+            {dashboard != null
+              ? dashboard.map((order) => {
+                  return (
+                    <Collaborator
+                      collaborator={order.collaborator}
+                      key={order.collaboratorId}
+                    ></Collaborator>
+                  )
+                })
+              : ''}
           </CardContent>
-
         </Card>
         <Card className="">
           <CardHeader className="flex">
@@ -123,7 +107,19 @@ export default function DashboardPage() {
             </div>
           </CardHeader>
           <CardContent className="grid sm:grid-cols-2 gap-4">
-            <Order status='Avaliado'></Order>
+            {dashboard != null
+              ? dashboard.map((order) => {
+                  return (
+                    <Order
+                      status={order.status}
+                      code={order.code}
+                      restaurant={order.description}
+                      orderCode={order.code}
+                      key={order.id}
+                    />
+                  )
+                })
+              : ''}
           </CardContent>
         </Card>
       </div>

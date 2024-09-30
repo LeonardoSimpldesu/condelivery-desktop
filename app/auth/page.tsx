@@ -42,7 +42,9 @@ export default function LogInPage() {
             </span>
           </Link>
           <div className="flex flex-col gap-4">
-            <MainButton>Entrar</MainButton>
+            <Link href="dashboard" className="w-full">
+              <MainButton className="w-full">Entrar</MainButton>
+            </Link>
             <SecondaryButton>Google</SecondaryButton>
             <SecondaryButton>Facebook</SecondaryButton>
           </div>

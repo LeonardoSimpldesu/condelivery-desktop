@@ -1,11 +1,6 @@
+'use client'
 import Image from 'next/image'
-import {
-  Copy,
-  CreditCard,
-  File,
-  ListFilter, Package,
-  Star
-} from 'lucide-react'
+import { Copy, CreditCard, File, ListFilter, Package, Star } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -20,9 +15,10 @@ import {
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
-  DropdownMenuContent, DropdownMenuLabel,
+  DropdownMenuContent,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -34,27 +30,25 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useEffect, useState } from 'react'
+import { api } from '@/api/api'
 
 export default function OrdersPage() {
+  const [order, setOrder] = useState(null)
 
-  // async function getData() {
-  //   const url = "http://localhost:3333/get-order";
-  //   try {
-  //     const response = await fetch(url);
-      
-  //     if (!response.ok) {
-  //       throw new Error(`Response status: ${response.status}`);
-  //     }
+  async function getOrderData() {
+    const { data } = await api.get('/get-order')
 
-  //     const json = await response.json();
-  //     console.log("peguei da API", json);
+    if (data) {
+      setOrder(data)
+    }
+  }
 
-  //   } catch (error: any) {
-  //     console.error(error.message);
-  //   }
-  // }
+  useEffect(() => {
+    getOrderData()
+  }, [])
 
-  // getData();
+  console.log(order)
 
   const renderStars = (rating: number) => {
     return Array(5)
@@ -122,7 +116,9 @@ export default function OrdersPage() {
                         <span className="sr-only">Image</span>
                       </TableHead>
                       <TableHead>Pedido</TableHead>
-                      <TableHead className="hidden sm:table-cell">Colaborador</TableHead>
+                      <TableHead className="hidden sm:table-cell">
+                        Colaborador
+                      </TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead className="hidden lg:table-cell">
                         Entregue/Previsão em:
@@ -133,39 +129,55 @@ export default function OrdersPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="hidden sm:table-cell">
-                          <Image
-                            alt="Product image"
-                            className="aspect-square rounded-md object-cover"
-                            height="64"
-                            src="/bag.png"
-                            width="64"
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <div className="font-medium">Pedido #1456</div>
-                          <div className="hidden text-sm text-muted-foreground md:inline">
-                            IFood - Restaurante Sabor Caseiro
-                          </div>
-                        </TableCell>
-                        <TableCell className="font-medium hidden sm:table-cell">
-                          Kleber Miranda
-                        </TableCell>
-                        <TableCell>
-                          <Badge>Avaliação</Badge>
-                        </TableCell>
-                        <TableCell className="hidden lg:table-cell">
-                          18-09-2024 10:42
-                        </TableCell>
-                        <TableCell>
-                          <div className="ml-auto w-fit h-fit bg-primary p-2 rounded-full">
-                            <Package className="text-white" />
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    {order != null
+                      ? order.map((order) => (
+                          <TableRow key={order.id}>
+                            <TableCell className="hidden sm:table-cell">
+                              <Image
+                                alt="Product image"
+                                className="aspect-square rounded-md object-cover"
+                                height="64"
+                                src="/bag.png"
+                                width="64"
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <div className="font-medium">
+                                Pedido #{order.code}
+                              </div>
+                              <div className="hidden text-sm text-muted-foreground md:inline">
+                                {order.description}
+                              </div>
+                            </TableCell>
+                            <TableCell className="font-medium hidden sm:table-cell">
+                              {order.collaborator.name}
+                            </TableCell>
+                            <TableCell>
+                              <Badge
+                                className={
+                                  order.status === 'Em rota'
+                                    ? 'bg-red-500'
+                                    : order.status === 'Finalizado'
+                                      ? 'bg-green-500'
+                                      : order.status === 'Avaliado'
+                                        ? 'bg-primary'
+                                        : ''
+                                }
+                              >
+                                {order.status}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="hidden lg:table-cell">
+                              {order.created_at}
+                            </TableCell>
+                            <TableCell>
+                              <div className="ml-auto w-fit h-fit bg-primary p-2 rounded-full">
+                                <Package className="text-white" />
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      : ''}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -178,7 +190,7 @@ export default function OrdersPage() {
           </TabsContent>
         </Tabs>
       </div>
-      <div className='lg:col-span-3 xl:col-span-1'>
+      <div className="lg:col-span-3 xl:col-span-1">
         <Card className="overflow-hidden">
           <CardHeader className="flex flex-row items-start bg-muted/50">
             <div className="grid gap-0.5">
