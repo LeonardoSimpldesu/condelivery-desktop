@@ -3,15 +3,10 @@ import { Package } from 'lucide-react'
 import { OrderDetailsModal } from './order-details-modal'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
+import { TOrder } from '@/types/order'
 
-type TOrder = {
-  status: 'Em rota' | 'Finalizado' | 'Avaliado'
-  code: number
-  restaurant: string
-  orderCode: string
-}
-
-export function Order({ status, code, restaurant, orderCode }: TOrder) {
+export function Order({ order }: { order: TOrder }) {
+  const { code, description, id, status } = order
   return (
     <Card className="min-w-fit overflow-hidden">
       <CardContent className="grid grid-cols-4 items-center gap-4 py-4">
@@ -26,11 +21,11 @@ export function Order({ status, code, restaurant, orderCode }: TOrder) {
           <div className="">
             <div className="font-medium">Pedido #{code}</div>
             <div className="hidden text-sm text-muted-foreground md:inline">
-              {restaurant}
+              {description}
             </div>
           </div>
         </div>
-        <OrderDetailsModal orderCode={orderCode}>
+        <OrderDetailsModal orderId={id}>
           <button className="ml-auto bg-primary p-2 rounded-full">
             <Package className="text-white" />
           </button>

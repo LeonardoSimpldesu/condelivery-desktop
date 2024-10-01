@@ -20,14 +20,23 @@ import {
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { api } from '@/api/api'
+import { TOrderDetails } from '@/types/order'
+import { Fetcher } from '@/api/fetcher'
 
-export function OrderDetailsModal({
-  children,
-  orderCode,
-}: Readonly<{
+type OrderDetailsModalProps = {
   children: React.ReactNode
-  orderCode: string
-}>) {
+  orderId: number
+}
+
+export async function OrderDetailsModal({
+  children,
+  orderId,
+}: OrderDetailsModalProps) {
+  const { code, tax, freight, resident, rating, collaborator, updatedAt } =
+    await Fetcher<TOrderDetails>({
+      endpoint: '/get-order',
+    })
+
   const renderStars = (rating: number) => {
     return Array(5)
       .fill(0)
@@ -41,11 +50,12 @@ export function OrderDetailsModal({
 
   function formSubmit(e) {
     api.post('/create-rating', {
-      order_code: orderCode,
+      order_code: orderId,
       rating: Number(e.get('rate')),
       recommendations: e.get('recomendation'),
     })
   }
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -53,7 +63,7 @@ export function OrderDetailsModal({
         <DialogHeader className="p-6 pt-8 bg-muted/50 flex flex-row items-start">
           <div className="grid gap-0.5">
             <DialogTitle className="group flex items-center gap-2 text-lg">
-              Pedido Oe31b70H
+              Pedido #{code}
               <Button
                 size="icon"
                 variant="outline"
@@ -66,8 +76,8 @@ export function OrderDetailsModal({
             <DialogDescription>
               <p className="flex items-center text-muted-foreground">
                 Avaliação:
-                <span className="ml-2">{(4).toFixed(1)}</span>
-                {renderStars(4)}
+                <span className="ml-2">{rating.toFixed(1)}</span>
+                {renderStars(rating)}
               </p>
             </DialogDescription>
           </div>
@@ -132,11 +142,11 @@ export function OrderDetailsModal({
               </li>
               <li className="flex items-center justify-between">
                 <span className="text-muted-foreground">Frete</span>
-                <span>R$25.00</span>
+                <span>R${freight}</span>
               </li>
               <li className="flex items-center justify-between">
                 <span className="text-muted-foreground">Taxa</span>
-                <span>R$5.00</span>
+                <span>R${tax}</span>
               </li>
               <li className="flex items-center justify-between font-semibold">
                 <span className="text-muted-foreground">Total</span>
@@ -149,9 +159,14 @@ export function OrderDetailsModal({
             <div className="grid gap-3">
               <div className="font-semibold">Informações de transporte</div>
               <address className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>João Tranquilo</span>
-                <span>568 Rua Maria Efigênia</span>
-                <span>São Paulo, SP 0000-00</span>
+                <span>{resident.name}</span>
+                <span>
+                  {resident.adress.number} {resident.adress.street}
+                </span>
+                <span>
+                  {resident.adress.state}, {resident.adress.country}{' '}
+                  {resident.adress.cep}
+                </span>
               </address>
             </div>
             <div className="grid auto-rows-max gap-3">
@@ -167,18 +182,18 @@ export function OrderDetailsModal({
             <dl className="grid gap-3">
               <div className="flex items-center justify-between">
                 <dt className="text-muted-foreground">Colaborador</dt>
-                <dd>Kleber Miranda</dd>
+                <dd>{collaborator.name}</dd>
               </div>
               <div className="flex items-center justify-between">
                 <dt className="text-muted-foreground">Email</dt>
                 <dd>
-                  <a href="mailto:">klebaograndao@gmail.com</a>
+                  <a href="mailto:">{collaborator.email}</a>
                 </dd>
               </div>
               <div className="flex items-center justify-between">
                 <dt className="text-muted-foreground">Telefone</dt>
                 <dd>
-                  <a href="tel:">+55 (31) 90000-0000</a>
+                  <a href="tel:">{collaborator.phone}</a>
                 </dd>
               </div>
             </dl>
@@ -199,7 +214,7 @@ export function OrderDetailsModal({
         </div>
         <DialogFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
           <div className="text-xs text-muted-foreground">
-            Atualizado <time dateTime="2024-09-19">19 de Setembro, 2024</time>
+            Atualizado <time dateTime="2024-09-19">{updatedAt.toString()}</time>
           </div>
         </DialogFooter>
       </DialogContent>

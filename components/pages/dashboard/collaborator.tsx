@@ -2,9 +2,10 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { ChevronRight, Star } from 'lucide-react'
 import { CollaboratorsDetailsModal } from './collaborator-details-modal'
+import { TCollaborator } from '@/types/collaborator'
 
 type TCollaboratorProps = {
-  collaborator: unknown
+  collaborator: TCollaborator
 }
 
 export function Collaborator({ collaborator }: TCollaboratorProps) {

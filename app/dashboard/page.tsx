@@ -1,4 +1,3 @@
-'use client'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 
@@ -12,10 +11,11 @@ import {
 } from '@/components/ui/card'
 import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
-import { useEffect, useState } from 'react'
-import { api } from '../../api/api.js'
 import { Collaborator } from '@/components/pages/dashboard/collaborator'
 import { Order } from '@/components/pages/dashboard/order'
+import { Fetcher } from '@/api/fetcher'
+import { TOrder } from '@/types/order'
+import { TCollaborator } from '@/types/collaborator'
 
 const policies = [
   { id: 1, title: 'Horário de Entregas', description: 'Das 8h às 22h' },
@@ -31,22 +31,11 @@ const policies = [
   },
 ]
 
-export default function DashboardPage() {
-  const [dashboard, setDashboard] = useState(null)
-
-  async function getDashboardData() {
-    const { data } = await api.get('/get-order')
-
-    if (data) {
-      setDashboard(data)
-    }
-  }
-
-  useEffect(() => {
-    getDashboardData()
-  }, [])
-
-  console.log(process.env)
+export default async function DashboardPage() {
+  const orders = await Fetcher<TOrder[]>({ endpoint: '/get-order' })
+  const collaborators = await Fetcher<TCollaborator[]>({
+    endpoint: '/get-collaborators',
+  })
 
   return (
     <main className="container mx-auto grid gap-4 xl:grid-cols-3">
@@ -73,19 +62,21 @@ export default function DashboardPage() {
             </div>
           </CardHeader>
           <CardContent className="flex flex-col sm:grid sm:grid-cols-2 gap-6 overflow-x-scroll custom-scroll xl:flex xl:flex-row">
-            {dashboard != null
-              ? dashboard.map((order) => {
-                  return (
-                    <Collaborator
-                      collaborator={order.collaborator}
-                      key={order.collaboratorId}
-                    ></Collaborator>
-                  )
-                })
-              : ''}
+            {/* {collaborators.map((collaborator) => {
+              if (collaborator.active) {
+                return (
+                  <Collaborator
+                    collaborator={collaborator}
+                    key={collaborator.id}
+                  ></Collaborator>
+                )
+              } else {
+                return ''
+              }
+            })} */}
           </CardContent>
         </Card>
-        <Card className="">
+        <Card>
           <CardHeader className="flex">
             <div className="flex flex-col items-center mb-2 sm:flex-row">
               <div className="grid gap-2">
@@ -107,23 +98,13 @@ export default function DashboardPage() {
             </div>
           </CardHeader>
           <CardContent className="grid sm:grid-cols-2 gap-4">
-            {dashboard != null
-              ? dashboard.map((order) => {
-                  return (
-                    <Order
-                      status={order.status}
-                      code={order.code}
-                      restaurant={order.description}
-                      orderCode={order.code}
-                      key={order.id}
-                    />
-                  )
-                })
-              : ''}
+            {/* {orders.map((order) => {
+              return <Order order={order} key={order.id} />
+            })} */}
           </CardContent>
         </Card>
       </div>
-      <Card className="">
+      <Card>
         <CardHeader className="flex flex-row items-start rounded-t-lg bg-muted/50 p-0 overflow-hidden">
           <Image
             alt="Product image"
@@ -134,7 +115,7 @@ export default function DashboardPage() {
           />
         </CardHeader>
         <CardContent className="p-6 text-sm">
-          <div className="">
+          <div>
             <CardTitle>Residência das Flores</CardTitle>
             <CardDescription>
               Condominío com 4 blocos e 70 apartamentos
