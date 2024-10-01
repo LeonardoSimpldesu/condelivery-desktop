@@ -24,6 +24,8 @@ export type TOrderDetails = {
   freight: number
   resident: {
     name: string
+    apartment: string
+    block: string
     adress: {
       street: string
       country: string
