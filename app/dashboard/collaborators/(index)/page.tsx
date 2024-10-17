@@ -2,9 +2,9 @@
 import { Fetcher } from '@/lib/fetcher'
 import { TCollaborator } from '@/types/collaborator'
 import { CollaboratorsDetails } from '@/components/pages/dashboard/collaborators/collaborator-details'
-import { HireCollaboratorTable } from './hire-collaborator-table'
+import { CollaboratorTable } from './collaborator-table'
 
-export default async function CollaboratorsHirePage({
+export default async function CollaboratorsPage({
   searchParams,
 }: {
   searchParams: {
@@ -20,9 +20,8 @@ export default async function CollaboratorsHirePage({
   return (
     <main className="container w-full mx-auto pt-4 grid lg:grid-cols-3 gap-6">
       <div className="lg:col-span-2 h-fit">
-        <HireCollaboratorTable collaborators={collaborators} />
+        <CollaboratorTable collaborators={collaborators} />
       </div>
-
       <CollaboratorsDetails
         collaboratorId={
           searchParams.collaborator

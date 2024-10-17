@@ -1,12 +1,11 @@
-import { Navigation } from "@/components/pages/dashboard/navigation"
-import { CircleHelp } from "lucide-react"
-import Link from "next/link"
+import { Navigation } from '@/components/pages/dashboard/navigation'
+import { CircleHelp } from 'lucide-react'
+import Link from 'next/link'
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from '@/components/ui/tooltip'
 
 export default function LayoutDashboard({
   children,
@@ -17,8 +16,11 @@ export default function LayoutDashboard({
     <div className="relative flex min-h-screen w-full flex-col">
       <Tooltip>
         <TooltipTrigger asChild>
-          <Link href={'/support'} className="absolute bottom-10 right-10 z-10 bg-primary w-fit h-fit p-2 rounded-full">
-            <CircleHelp size={32} className="text-white"/>
+          <Link
+            href={'/support'}
+            className="absolute bottom-10 right-10 z-10 bg-primary w-fit h-fit p-2 rounded-full"
+          >
+            <CircleHelp size={32} className="text-white" />
           </Link>
         </TooltipTrigger>
         <TooltipContent>

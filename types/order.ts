@@ -1,9 +1,14 @@
 export type TOrder = {
   id: number
   code: string
-  collaboratorId: number
+  createdAt: Date
+  updatedAt: Date
   description: string
-  status: 'Em rota' | 'Finalizado' | 'Avaliado'
+  status: 'EmRota' | 'Finalizado' | 'Avaliado'
+  collaborator: {
+    id: number
+    name: string
+  }
 }
 
 export type TOrderDetails = {
@@ -13,15 +18,15 @@ export type TOrderDetails = {
   createdAt: Date
   updatedAt: Date
   description: string
-  status: 'Em rota' | 'Finalizado' | 'Avaliado'
+  status: 'EmRota' | 'Finalizado' | 'Avaliado'
   rating: number
   isEvaluated: boolean
   // products: {
   //   name: string
   //   value: number
   // }[]
-  tax: number
-  freight: number
+  // tax: number
+  // freight: number
   resident: {
     name: string
     apartment: string

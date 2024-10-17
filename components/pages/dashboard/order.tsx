@@ -1,12 +1,18 @@
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Package } from 'lucide-react'
-import { OrderDetailsModal } from './order-details-modal'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
-import { TOrder } from '@/types/order'
+import { Button } from '@/components/ui/button'
+import { OrderDetailsDialog } from './order-details-dialog'
 
-export function Order({ order }: { order: TOrder }) {
-  const { code, description, id, status } = order
+type OrderProps = {
+  id: number
+  code: string
+  description: string
+  status: 'EmRota' | 'Finalizado' | 'Avaliado'
+}
+
+export function Order({ code, description, id, status }: OrderProps) {
   return (
     <Card className="min-w-fit overflow-hidden">
       <CardContent className="grid grid-cols-4 items-center gap-4 py-4">
@@ -25,16 +31,16 @@ export function Order({ order }: { order: TOrder }) {
             </div>
           </div>
         </div>
-        <OrderDetailsModal orderId={id}>
-          <button className="ml-auto bg-primary p-2 rounded-full">
+        <OrderDetailsDialog orderId={id}>
+          <Button className="ml-auto bg-primary p-2 rounded-full">
             <Package className="text-white" />
-          </button>
-        </OrderDetailsModal>
+          </Button>
+        </OrderDetailsDialog>
       </CardContent>
       <CardFooter
         className={cn(
           'p-0 py-1 ',
-          status === 'Em rota'
+          status === 'EmRota'
             ? 'bg-red-500'
             : status === 'Finalizado'
               ? 'bg-green-500'

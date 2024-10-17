@@ -1,40 +1,37 @@
+'use server'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { Copy, CreditCard, Star } from 'lucide-react'
+import { TOrderDetails } from '@/types/order'
+import { Fetcher } from '@/lib/fetcher'
+import { Rate } from '@/components/pages/dashboard/rate'
+import { format } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
+  DialogFooter,
   DialogTitle,
+  DialogDescription,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { api } from '@/api/api'
-import { TOrderDetails } from '@/types/order'
-import { Fetcher } from '@/api/fetcher'
+import { ReactNode } from 'react'
 
-type OrderDetailsModalProps = {
-  children: React.ReactNode
+type OrderDetailsProps = {
   orderId: number
+  children: ReactNode
 }
 
-export async function OrderDetailsModal({
-  children,
+export async function OrderDetailsDialog({
   orderId,
-}: OrderDetailsModalProps) {
-  const { code, tax, freight, resident, rating, collaborator, updatedAt } =
-    await Fetcher<TOrderDetails>({
-      endpoint: '/get-order',
+  children,
+}: OrderDetailsProps) {
+  const { code, resident, rating, collaborator, updatedAt, status } =
+    await Fetcher<TOrderDetails>(`/get-order-detail/${orderId}`, {
+      next: {
+        tags: ['get-orders-details'],
+      },
     })
 
   const renderStars = (rating: number) => {
@@ -48,13 +45,9 @@ export async function OrderDetailsModal({
       ))
   }
 
-  function formSubmit(e) {
-    api.post('/create-rating', {
-      order_code: orderId,
-      rating: Number(e.get('rate')),
-      recommendations: e.get('recomendation'),
-    })
-  }
+  const lastUpdate = format(new Date(updatedAt), "dd/MM/yyyy 'às' HH:mm", {
+    locale: ptBR,
+  })
 
   return (
     <Dialog>
@@ -74,47 +67,20 @@ export async function OrderDetailsModal({
               </Button>
             </DialogTitle>
             <DialogDescription>
-              <p className="flex items-center text-muted-foreground">
-                Avaliação:
-                <span className="ml-2">{rating.toFixed(1)}</span>
-                {renderStars(rating)}
-              </p>
+              {status === 'Finalizado' ? (
+                <Rate code={code} />
+              ) : status === 'Avaliado' ? (
+                <p className="flex items-center text-muted-foreground">
+                  Avaliação:
+                  <span className="ml-2">{rating.toFixed(1)}</span>
+                  {renderStars(rating)}
+                </p>
+              ) : (
+                <p className="font-medium text-muted-foreground">
+                  Pedido a caminho
+                </p>
+              )}
             </DialogDescription>
-          </div>
-          <div className="ml-auto flex items-center gap-1">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button size="sm" variant="outline" className="h-8 gap-1">
-                  <Star className="h-3.5 w-3.5" />
-                  <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-                    Avaliar pedido
-                  </span>
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Avaliar pedido</CardTitle>
-                    <CardDescription>
-                      Coloque um valor entre 1 e 5 para avaliar o pedido
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <form className="space-y-4" action={formSubmit}>
-                      <div className="space-y-2">
-                        <Label htmlFor="rate">Avalição</Label>
-                        <Input name="rate" id="rate" type="number" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="recomendation">Recomendação</Label>
-                        <Input name="recomendation" id="recomendation" />
-                      </div>
-                      <Button className="w-full">Avaliar</Button>
-                    </form>
-                  </CardContent>
-                </Card>
-              </DialogContent>
-            </Dialog>
           </div>
         </DialogHeader>
         <div className="p-6 text-sm">
@@ -142,11 +108,11 @@ export async function OrderDetailsModal({
               </li>
               <li className="flex items-center justify-between">
                 <span className="text-muted-foreground">Frete</span>
-                <span>R${freight}</span>
+                <span>R$5.00</span>
               </li>
               <li className="flex items-center justify-between">
                 <span className="text-muted-foreground">Taxa</span>
-                <span>R${tax}</span>
+                <span>R$5.00</span>
               </li>
               <li className="flex items-center justify-between font-semibold">
                 <span className="text-muted-foreground">Total</span>
@@ -214,7 +180,7 @@ export async function OrderDetailsModal({
         </div>
         <DialogFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
           <div className="text-xs text-muted-foreground">
-            Atualizado <time dateTime="2024-09-19">{updatedAt.toString()}</time>
+            Atualizado <time dateTime={lastUpdate}>{lastUpdate}</time>
           </div>
         </DialogFooter>
       </DialogContent>

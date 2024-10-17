@@ -1,5 +1,4 @@
-import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
-import { headers, cookies } from 'next/headers'
+// import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 import env from '@/config/env'
 
 type NextFetchRequestConfig = {
@@ -19,13 +18,13 @@ export async function Fetcher<T>(
   endpoint: string,
   options: TFetchOptions = {},
 ): Promise<T> {
-  const tokenName: string = env.TOKEN_NAME
-  let token: RequestCookie | undefined | string | null
-  if (typeof window === 'undefined') {
-    token = cookies().get(tokenName)
-  } else {
-    token = headers().get(tokenName)
-  }
+  // const tokenName: string = env.TOKEN_NAME
+  // let token: RequestCookie | undefined | string | null
+  // if (typeof window === 'undefined') {
+  //   token = cookies().get(tokenName)
+  // } else {
+  //   token = require(headers).get(tokenName)
+  // }
 
   if (options?.filters) {
     const filters = options.filters
@@ -35,14 +34,15 @@ export async function Fetcher<T>(
     })
   }
 
-  const defaultOptions = {
+  const defaultOptions: RequestInit & NextFetchRequestConfig = {
     method: 'GET',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: token ? `Bearer ${token}` : '',
+      // Authorization: token ? `Bearer ${token}` : '',
       ...options?.headers,
     },
+    cache: 'no-store',
   }
 
   const mergedOptions = {

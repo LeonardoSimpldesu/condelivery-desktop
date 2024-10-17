@@ -76,7 +76,7 @@ export function Adresses() {
               </li>
             </ul>
           </CardContent>
-          <CardFooter className='flex flex-col sm:flex-row sm:gap-4'>
+          <CardFooter className="flex flex-col sm:flex-row sm:gap-4">
             <Button variant={'link'} className="p-0 text-blue-700">
               Atualizar endereço
             </Button>
@@ -95,7 +95,7 @@ export function Adresses() {
         </div>
         <div className="flex flex-col lg:grid lg:grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2 col-span-2">
-            <Label htmlFor="name">Come completo (nome e sobrenome)</Label>
+            <Label htmlFor="name">Nome completo (nome e sobrenome)</Label>
             <Input id="name" name="name" />
           </div>
           <div className="space-y-2">

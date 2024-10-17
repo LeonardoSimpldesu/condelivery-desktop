@@ -11,9 +11,14 @@ export type TCollaborator = {
   name: string
   countDeliveries: number
   mediaRating: number
+  countRating: number
   operatingTimeInMonths: number
-  servicesProvided: string[]
+  tags: string
+  languages: string
+  local: string
+  servicesProvided: string // Atualizar a API para isto ser um array
   active: boolean
+  ratings: TRating[]
 }
 
 export type TCollaboratorDetails = {
