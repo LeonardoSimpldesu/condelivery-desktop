@@ -17,42 +17,83 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Star, Search, CircleUser, Package, ArrowUpRight } from 'lucide-react'
+import {
+  Star,
+  Search,
+  CircleUser,
+  Package,
+  Plus,
+  ArrowUpRight,
+} from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
 import { TCollaborator } from '@/types/collaborator'
+import { redirect } from 'next/navigation'
+import * as motion from 'framer-motion/client'
+import { twJoin } from 'tailwind-merge'
 
-export async function HireCollaboratorTable({
-  collaborators,
-}: {
+type CollaboratorTableProps = {
   collaborators: TCollaborator[]
-}) {
+  isHire?: boolean
+  title: string
+  description: string
+}
+
+export async function CollaboratorTable({
+  collaborators,
+  description,
+  title,
+  isHire = false,
+}: CollaboratorTableProps) {
   async function handleFormSubmit(formData: FormData) {
     'use server'
     const collaboratorId = formData.get('collaborator')
-    redirect(`hire/?collaborator=${collaboratorId}`)
+    redirect(`collaborators/?collaborator=${collaboratorId}`)
   }
+
   return (
-    <Card className="">
+    <Card>
       <CardHeader className="flex">
         <div className="flex flex-col items-center mb-2 sm:flex-row">
           <div className="grid gap-2">
-            <CardTitle>Contratar Colaboradores</CardTitle>
-            <CardDescription>
-              Estes são os colaboradores disponíveis para serem contratados
-            </CardDescription>
+            <CardTitle>{title}</CardTitle>
+            <CardDescription>{description}</CardDescription>
           </div>
-          <Button
-            asChild
-            size="sm"
-            className="w-full mt-4 gap-1 sm:ml-auto sm:w-fit sm:mt-0"
+          <motion.div
+            whileHover={{
+              scale: 1.1,
+            }}
+            whileTap={{ scale: 0.9 }}
+            className="ml-auto"
           >
-            <Link href="/dashboard/collaborators">
-              Meus Colaboradores
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </Button>
+            <Button
+              asChild
+              size="sm"
+              className={twJoin(
+                'w-full mt-4 gap-1 sm:ml-auto sm:w-fit sm:mt-0',
+                isHire ? '' : 'hidden',
+              )}
+            >
+              <Link href="/dashboard/collaborators">
+                Meus Colaboradores
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button
+              variant={'outline'}
+              asChild
+              size="sm"
+              className={twJoin(
+                'w-full mt-4 gap-1 sm:ml-auto sm:mr-4 sm:w-fit',
+                isHire ? 'hidden' : '',
+              )}
+            >
+              <Link href="/dashboard/collaborators/hire">
+                Contratar novos colaboradores
+                <Plus className="h-4 w-4" />
+              </Link>
+            </Button>
+          </motion.div>
         </div>
       </CardHeader>
       <CardContent>
@@ -61,10 +102,18 @@ export async function HireCollaboratorTable({
             placeholder="Pesquisar por nome ou endereço"
             className="flex-grow"
           />
-          <Button>
-            <Search className="h-4 w-4 mr-2" />
-            Pesquisar
-          </Button>
+          <motion.div
+            whileHover={{
+              scale: 1.1,
+            }}
+            whileTap={{ scale: 0.9 }}
+            className="ml-auto"
+          >
+            <Button>
+              <Search className="h-4 w-4 mr-2" />
+              Pesquisar
+            </Button>
+          </motion.div>
         </div>
         <Table>
           <TableHeader>
@@ -85,12 +134,12 @@ export async function HireCollaboratorTable({
           <TableBody>
             {collaborators.map(
               ({
-                countDeliveries,
+                name,
                 id,
                 mediaRating,
-                name,
-                operatingTimeInMonths,
                 servicesProvided,
+                operatingTimeInMonths,
+                countDeliveries,
               }) => (
                 <TableRow key={id}>
                   <TableCell className="hidden sm:table-cell">
@@ -135,12 +184,20 @@ export async function HireCollaboratorTable({
                         value={id}
                         readOnly
                       />
-                      <Button
-                        type="submit"
-                        className="ml-auto w-fit h-fit bg-primary p-2 rounded-full"
+                      <motion.div
+                        whileHover={{
+                          scale: 1.1,
+                        }}
+                        whileTap={{ scale: 0.9 }}
+                        className="ml-auto"
                       >
-                        <CircleUser className="text-white" />
-                      </Button>
+                        <Button
+                          type="submit"
+                          className="ml-auto w-fit h-fit bg-primary p-2 rounded-full"
+                        >
+                          <CircleUser className="text-white" />
+                        </Button>
+                      </motion.div>
                     </form>
                   </TableCell>
                 </TableRow>
@@ -149,7 +206,7 @@ export async function HireCollaboratorTable({
           </TableBody>
         </Table>
       </CardContent>
-      <CardFooter className="">
+      <CardFooter>
         <div className="text-xs text-muted-foreground">
           Mostrando <strong>1-10</strong> of <strong>32</strong> moradores
         </div>
