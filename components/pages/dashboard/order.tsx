@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { OrderDetailsDialog } from './order-details-dialog'
+import * as motion from 'framer-motion/client'
 
 type OrderProps = {
   id: number
@@ -31,11 +32,19 @@ export function Order({ code, description, id, status }: OrderProps) {
             </div>
           </div>
         </div>
-        <OrderDetailsDialog orderId={id}>
-          <Button className="ml-auto bg-primary p-2 rounded-full">
-            <Package className="text-white" />
-          </Button>
-        </OrderDetailsDialog>
+        <motion.div
+          whileHover={{
+            scale: 1.1,
+          }}
+          whileTap={{ scale: 0.9 }}
+          className="ml-auto"
+        >
+          <OrderDetailsDialog orderId={id}>
+            <Button className="bg-primary p-2 rounded-full">
+              <Package className="text-white" />
+            </Button>
+          </OrderDetailsDialog>
+        </motion.div>
       </CardContent>
       <CardFooter
         className={cn(
@@ -49,7 +58,9 @@ export function Order({ code, description, id, status }: OrderProps) {
                 : '',
         )}
       >
-        <p className="mx-auto font-semibold text-white">{status}</p>
+        <p className="mx-auto font-semibold text-white">
+          {status === 'EmRota' ? 'Em rota' : status}
+        </p>
       </CardFooter>
     </Card>
   )

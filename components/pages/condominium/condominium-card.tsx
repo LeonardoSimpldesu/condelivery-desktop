@@ -29,7 +29,7 @@ export async function CondominiumCard({ isAdmin = false }: TCondominiumCard) {
     },
   )
   return (
-    <Card>
+    <Card className="h-full w-full">
       <CondominiumDialog>
         <CardHeader className="flex flex-row items-start rounded-t-lg bg-muted/50 p-0 overflow-hidden cursor-pointer">
           <Image
