@@ -63,11 +63,11 @@ export async function OrderDetails({ orderId }: OrderDetailsProps) {
               {status === 'Finalizado' ? (
                 <Rate code={code} />
               ) : status === 'Avaliado' ? (
-                <p className="flex items-center text-muted-foreground">
+                <span className="flex items-center text-muted-foreground">
                   Avaliação:
                   <span className="ml-2">{rating.toFixed(1)}</span>
                   {renderStars(rating)}
-                </p>
+                </span>
               ) : (
                 ''
               )}

@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import { File, ListFilter, Package } from 'lucide-react'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import * as motion from 'framer-motion/client'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -111,14 +112,14 @@ export default async function OrdersTable({ orders }: { orders: TOrder[] }) {
                     status,
                     createdAt,
                   }) => {
-                    const lastUpdate = format(
-                      new Date(createdAt),
-                      "dd/MM/yyyy 'às' HH:mm",
-                      {
-                        locale: ptBR,
-                      },
-                    )
-
+                    // const lastUpdate = format(
+                    //   new Date(createdAt),
+                    //   "dd/MM/yyyy 'às' HH:mm",
+                    //   {
+                    //     locale: ptBR,
+                    //   },
+                    // )
+                    const lastUpdate = '23 de Setembro, 2024'
                     return (
                       <TableRow key={id}>
                         <TableCell className="hidden sm:table-cell">
@@ -144,15 +145,15 @@ export default async function OrdersTable({ orders }: { orders: TOrder[] }) {
                           <Badge
                             className={
                               status === 'EmRota'
-                                ? 'bg-red-500'
+                                ? 'bg-red-500 hover:bg-red-600'
                                 : status === 'Finalizado'
-                                  ? 'bg-green-500'
+                                  ? 'bg-green-500 hover:bg-green-600'
                                   : status === 'Avaliado'
                                     ? 'bg-primary'
                                     : ''
                             }
                           >
-                            {status}
+                            {status === 'EmRota' ? 'Em rota' : status}
                           </Badge>
                         </TableCell>
                         <TableCell className="hidden lg:table-cell">
@@ -167,12 +168,20 @@ export default async function OrdersTable({ orders }: { orders: TOrder[] }) {
                               value={id}
                               readOnly
                             />
-                            <Button
-                              type="submit"
-                              className="ml-auto w-fit h-fit bg-primary p-2 rounded-full"
+                            <motion.div
+                              whileHover={{
+                                scale: 1.1,
+                              }}
+                              whileTap={{ scale: 0.9 }}
+                              className="ml-auto"
                             >
-                              <Package className="text-white" />
-                            </Button>
+                              <Button
+                                type="submit"
+                                className="w-fit h-fit bg-primary p-2 rounded-full"
+                              >
+                                <Package className="text-white" />
+                              </Button>
+                            </motion.div>
                           </form>
                         </TableCell>
                       </TableRow>
