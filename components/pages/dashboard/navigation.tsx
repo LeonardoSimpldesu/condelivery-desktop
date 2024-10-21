@@ -1,7 +1,14 @@
 'use client'
 
 import Link from 'next/link'
-import { ChevronDown, LogOut, Menu, Package2, User } from 'lucide-react'
+import {
+  ChevronDown,
+  CircleUserRound,
+  LogOut,
+  Menu,
+  Package2,
+  User,
+} from 'lucide-react'
 
 import {
   DropdownMenu,
@@ -51,13 +58,6 @@ export function Navigation() {
         </Link>
         <Link
           prefetch
-          href="/dashboard/settings"
-          className={`${pathname === '/dashboard/settings' ? 'text-foreground' : 'text-muted-foreground'} transition-colors hover:text-foreground`}
-        >
-          Configurações
-        </Link>
-        <Link
-          prefetch
           href="/dashboard/collaborators"
           className={`${pathname === '/dashboard/collaborators' ? 'text-foreground' : 'text-muted-foreground'} transition-colors hover:text-foreground`}
         >
@@ -99,13 +99,6 @@ export function Navigation() {
             </Link>
             <Link
               prefetch
-              href="/dashboard/settings"
-              className={`${pathname === '/dashboard/settings' ? 'text-foreground' : 'text-muted-foreground'} transition-colors hover:text-foreground`}
-            >
-              Configurações
-            </Link>
-            <Link
-              prefetch
               href="/dashboard/collaborators"
               className={`${pathname === '/dashboard/collaborators' ? 'text-foreground' : 'text-muted-foreground'} transition-colors hover:text-foreground`}
             >
@@ -134,13 +127,20 @@ export function Navigation() {
               </span>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
+            <DropdownMenuItem className="text-muted-foreground" asChild>
+              <Link href="/dashboard/settings" className={''}>
+                <CircleUserRound className="mr-2 h-4 w-4" />
+                Configurações
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-rose-500 dark:text-rose-400"
               asChild
             >
               <Link href={'/auth'}>
                 <LogOut className="mr-2 h-4 w-4" />
-                <span>Sair</span>
+                Sair
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
