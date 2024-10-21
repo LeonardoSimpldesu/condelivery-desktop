@@ -10,13 +10,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Collaborator } from '@/components/pages/dashboard/collaborator'
 import { Order } from '@/components/pages/dashboard/order'
 import { Fetcher } from '@/lib/fetcher'
 import { TOrder } from '@/types/order'
 import { TCollaborator } from '@/types/collaborator'
-import { CondominiumCard } from '@/components/pages/condominium/condominium-card'
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { CondominiumCard } from '@/components/pages/dashboard/condominium/condominium-card'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Collaborators } from '@/components/pages/dashboard/collaborators'
 
 export default async function DashboardPage() {
   const orders = await Fetcher<TOrder[]>('/get-orders', {
@@ -64,66 +64,11 @@ export default async function DashboardPage() {
             y: 0,
           }}
         >
-          <Card className="mb-4">
-            <CardHeader className="flex">
-              <div className="flex flex-col items-center sm:flex-row">
-                <div className="grid gap-2">
-                  <CardTitle>Colaboradores Ativos</CardTitle>
-                  <CardDescription>
-                    Colaboradores trabalhando neste momento
-                  </CardDescription>
-                </div>
-                <motion.div
-                  whileHover={{
-                    scale: 1.1,
-                  }}
-                  whileTap={{ scale: 0.9 }}
-                  className="sm:ml-auto sm:w-fit"
-                >
-                  <Button asChild size="sm" className="w-full mt-4 gap-1">
-                    <Link href="/dashboard/collaborators">
-                      Ver todos
-                      <ArrowUpRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
-                </motion.div>
-              </div>
-            </CardHeader>
-            <CardContent className="">
-              <ScrollArea className="whitespace-nowrap">
-                <motion.div
-                  variants={itemsCase}
-                  initial="hidden"
-                  animate="visible"
-                  className="flex flex-col sm:grid sm:grid-cols-2 gap-6 py-3 xl:flex xl:flex-row overflow-y-hidden px-2"
-                >
-                  {collaborators
-                    ? collaborators.map(({ active, mediaRating, id, name }) =>
-                        active ? (
-                          <motion.div
-                            key={id}
-                            variants={item}
-                            whileHover={{
-                              scale: 1.05,
-                            }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <Collaborator
-                              collaboratorId={id}
-                              rating={mediaRating}
-                              name={name}
-                            />
-                          </motion.div>
-                        ) : (
-                          ''
-                        ),
-                      )
-                    : 'Nenhum Colaborador'}
-                </motion.div>
-                <ScrollBar orientation="horizontal" />
-              </ScrollArea>
-            </CardContent>
-          </Card>
+          <Collaborators
+            collaborators={collaborators}
+            title="Colaboradores Ativos"
+            description="Colaboradores trabalhando neste momento"
+          />
         </motion.div>
         <motion.div
           initial={{

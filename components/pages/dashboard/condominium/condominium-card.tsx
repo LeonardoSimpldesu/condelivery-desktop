@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { Plus, Trash } from 'lucide-react'
 import { CondominiumPolicyDialog } from './condominium-policy-dialog'
 import { cn } from '@/lib/utils'
+import * as motion from 'framer-motion/client'
 
 type TCondominiumCard = {
   isAdmin?: boolean
@@ -69,15 +70,22 @@ export async function CondominiumCard({ isAdmin = false }: TCondominiumCard) {
             ))}
           </div>
         </div>
-        <CondominiumPolicyDialog>
-          <Button
-            size="sm"
-            className={cn('w-full mt-4 gap-1', isAdmin ? '' : 'hidden')}
-          >
-            Adicionar nova política
-            <Plus className="h-4 w-4" />
-          </Button>
-        </CondominiumPolicyDialog>
+        <motion.div
+          whileHover={{
+            scale: 1.05,
+          }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <CondominiumPolicyDialog>
+            <Button
+              size="sm"
+              className={cn('w-full mt-4 gap-1', isAdmin ? '' : 'hidden')}
+            >
+              Adicionar nova política
+              <Plus className="h-4 w-4" />
+            </Button>
+          </CondominiumPolicyDialog>
+        </motion.div>
         <Separator className="my-4" />
         <div className="grid sm:grid-cols-2 gap-4">
           <div className="grid gap-3">
