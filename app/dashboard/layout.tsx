@@ -15,7 +15,7 @@ export default function LayoutDashboard({
 }>) {
   return (
     <div className="relative flex min-h-screen w-full flex-col">
-      <Tooltip>
+      <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>
           <motion.div
             whileHover={{
