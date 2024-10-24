@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function Home() {
   return (
     <main className="bg-[#DCDBDA] h-screen">
-      <div className="flex flex-col bg-[url('/landing/banner1.png')] bg-cover min-h-screen py-10 px-6 lg:px-40">
+      <div className="flex flex-col bg-[url('/landing/banner1.png')] bg-cover min-h-screen py-10 px-6 lg:px-40 justify-center">
         <div className="flex flex-col lg:flex-row justify-between items-center h-auto lg:h-[4.75rem] px-4 lg:px-[1.875rem] rounded-[20px] bg-[#E9EBF8] gap-6">
           <a href="#" className="w-[120px] lg:w-[150px] h-auto">
             <Image
@@ -58,7 +58,7 @@ export default function Home() {
             </ul>
           </nav>
           <div className="mt-4 lg:mt-0">
-            <a href="/auth">
+            <a href="#">
               <button className="w-[90px] lg:w-[110px] h-[42px] text-[14px] lg:text-[17px] text-[#E9EBF8] rounded-[10px] border-none bg-[#F46D1F] cursor-pointer">
                 Entrar
               </button>
@@ -347,11 +347,9 @@ export default function Home() {
             Transforme suas entregas em uma <br />
             experiência eficiente e direta!
           </h1>
-          <a href="/auth">
-            <button className="bg-white text-black font-bold py-2 px-4 rounded-md">
-              Entrar
-            </button>
-          </a>
+          <button className="bg-white text-black font-bold py-2 px-4 rounded-md">
+            Entrar
+          </button>
         </div>
       </section>
 

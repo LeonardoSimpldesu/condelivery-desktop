@@ -2,10 +2,10 @@
 import { Fetcher } from '@/lib/fetcher'
 import { TCollaborator } from '@/types/collaborator'
 import { CollaboratorsDetails } from '@/components/pages/dashboard/collaborators/collaborator-details'
-import { CollaboratorTable } from '@/components/pages/dashboard/collaborators/collaborator-table'
+import { CollaboratorTable } from '../../../../components/pages/dashboard/collaborators/collaborator-table'
 import * as motion from 'framer-motion/client'
 
-export default async function CollaboratorsHirePage({
+export default async function CollaboratorsPage({
   searchParams,
 }: {
   searchParams: {
@@ -34,9 +34,8 @@ export default async function CollaboratorsHirePage({
       >
         <CollaboratorTable
           collaborators={collaborators}
-          title="Contratar Colaboradores"
-          description="Estes são os colaboradores disponíveis para serem contratados"
-          isHire
+          title="Colaboradores Contratados"
+          description="Estes são os colaboradores que estão contratados em seu condomínio"
         />
       </motion.div>
       <motion.div

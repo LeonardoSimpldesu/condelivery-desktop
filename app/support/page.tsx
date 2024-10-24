@@ -1,23 +1,38 @@
 'use client'
 import React, { useState, useRef, useEffect } from 'react'
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Send, ArrowLeft, MoreVertical } from 'lucide-react'
 
 interface Message {
-  id: number;
-  text: string;
-  sender: 'user' | 'support';
-  timestamp: Date;
+  id: number
+  text: string
+  sender: 'user' | 'support'
+  timestamp: Date
 }
 
 export default function SupportPage() {
   const [messages, setMessages] = useState<Message[]>([
-    { id: 1, text: "Olá! Como posso ajudar você hoje?", sender: 'support', timestamp: new Date(Date.now() - 300000) },
-    { id: 2, text: "Estou com um problema na entrega do meu pedido.", sender: 'user', timestamp: new Date(Date.now() - 240000) },
-    { id: 3, text: "Lamento ouvir isso. Pode me fornecer mais detalhes sobre o problema?", sender: 'support', timestamp: new Date(Date.now() - 180000) },
+    {
+      id: 1,
+      text: 'Olá! Como posso ajudar você hoje?',
+      sender: 'support',
+      timestamp: new Date(Date.now() - 300000),
+    },
+    {
+      id: 2,
+      text: 'Estou com um problema na entrega do meu pedido.',
+      sender: 'user',
+      timestamp: new Date(Date.now() - 240000),
+    },
+    {
+      id: 3,
+      text: 'Lamento ouvir isso. Pode me fornecer mais detalhes sobre o problema?',
+      sender: 'support',
+      timestamp: new Date(Date.now() - 180000),
+    },
   ])
   const [newMessage, setNewMessage] = useState('')
   const chatEndRef = useRef<HTMLDivElement>(null)
@@ -32,7 +47,7 @@ export default function SupportPage() {
         id: messages.length + 1,
         text: newMessage,
         sender: 'user',
-        timestamp: new Date()
+        timestamp: new Date(),
       }
       setMessages([...messages, userMessage])
       setNewMessage('')
@@ -41,11 +56,11 @@ export default function SupportPage() {
       setTimeout(() => {
         const supportMessage: Message = {
           id: messages.length + 2,
-          text: "Obrigado por fornecer essas informações. Estou verificando o status do seu pedido agora.",
+          text: 'Obrigado por fornecer essas informações. Estou verificando o status do seu pedido agora.',
           sender: 'support',
-          timestamp: new Date()
+          timestamp: new Date(),
         }
-        setMessages(prevMessages => [...prevMessages, supportMessage])
+        setMessages((prevMessages) => [...prevMessages, supportMessage])
       }, 1000)
     }
   }
@@ -62,7 +77,10 @@ export default function SupportPage() {
           <ArrowLeft className="h-6 w-6" />
         </Button>
         <Avatar className="h-10 w-10 mr-3">
-          <AvatarImage src="/placeholder-avatar.jpg" alt="Suporte Condelivery" />
+          <AvatarImage
+            src="/placeholder-avatar.jpg"
+            alt="Suporte Condelivery"
+          />
           <AvatarFallback>SC</AvatarFallback>
         </Avatar>
         <div className="flex-1">
@@ -76,26 +94,28 @@ export default function SupportPage() {
 
       {/* Chat Area */}
       <div className="flex-1 lg:w-[1024px] lg:mx-auto">
-      <ScrollArea className="p-4">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'} mb-4`}
-          >
+        <ScrollArea className="p-4">
+          {messages.map((message) => (
             <div
-              className={`max-w-[70%] rounded-lg p-3 ${
-                message.sender === 'user'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-secondary text-secondary-foreground'
-              }`}
+              key={message.id}
+              className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'} mb-4`}
             >
-              <p>{message.text}</p>
-              <p className="text-xs mt-1 opacity-75">{formatTime(message.timestamp)}</p>
+              <div
+                className={`max-w-[70%] rounded-lg p-3 ${
+                  message.sender === 'user'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-secondary text-secondary-foreground'
+                }`}
+              >
+                <p>{message.text}</p>
+                <p className="text-xs mt-1 opacity-75">
+                  {formatTime(message.timestamp)}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-        <div ref={chatEndRef} />
-      </ScrollArea>
+          ))}
+          <div ref={chatEndRef} />
+        </ScrollArea>
       </div>
 
       {/* Message Input */}
