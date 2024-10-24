@@ -51,6 +51,18 @@ export default async function DashboardPage() {
     },
   }
 
+  let orderComponent
+
+  if (!orders || !Array.isArray(orders)) {
+    orderComponent = <div className="">Nenhum pedido encontrado</div>
+  } else {
+    orderComponent = orders.map(({ code, description, status, id }) => (
+      <motion.div key={id} variants={item}>
+        <Order code={code} description={description} status={status} id={id} />
+      </motion.div>
+    ))
+  }
+
   return (
     <main className="container mx-auto grid gap-4 xl:grid-cols-3">
       <div className="xl:col-span-2">
@@ -118,16 +130,7 @@ export default async function DashboardPage() {
                   animate="visible"
                   className="grid sm:grid-cols-2 gap-4 "
                 >
-                  {orders.map(({ code, description, status, id }) => (
-                    <motion.div key={id} variants={item}>
-                      <Order
-                        code={code}
-                        description={description}
-                        status={status}
-                        id={id}
-                      />
-                    </motion.div>
-                  ))}
+                  {orderComponent}
                 </motion.div>
               </CardContent>
             </ScrollArea>

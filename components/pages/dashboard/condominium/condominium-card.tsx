@@ -53,21 +53,23 @@ export async function CondominiumCard({ isAdmin = false }: TCondominiumCard) {
         <div className="grid gap-3">
           <div className="font-semibold">Políticas do Condomínio</div>
           <div className="grid gap-3">
-            {policies.map((policy) => (
-              <div key={policy.id} className="flex justify-between">
-                <div className="">
-                  <p className="text-muted-foreground">{policy.title}</p>
-                  <p>{policy.description}</p>
-                </div>
-                <Button
-                  className={isAdmin ? '' : 'hidden'}
-                  variant={'ghost'}
-                  size={'icon'}
-                >
-                  <Trash className="size-5 text-destructive" />
-                </Button>
-              </div>
-            ))}
+            {policies
+              ? policies.map((policy) => (
+                  <div key={policy.id} className="flex justify-between">
+                    <div className="">
+                      <p className="text-muted-foreground">{policy.title}</p>
+                      <p>{policy.description}</p>
+                    </div>
+                    <Button
+                      className={isAdmin ? '' : 'hidden'}
+                      variant={'ghost'}
+                      size={'icon'}
+                    >
+                      <Trash className="size-5 text-destructive" />
+                    </Button>
+                  </div>
+                ))
+              : 'Nenhuma política disponível'}
           </div>
         </div>
         <motion.div

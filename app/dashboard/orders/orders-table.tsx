@@ -44,6 +44,92 @@ export default async function OrdersTable({ orders }: { orders: TOrder[] }) {
     redirect(`orders/?order=${orderId}`)
   }
 
+  let orderComponent
+
+  if (!orders || !Array.isArray(orders)) {
+    orderComponent = (
+      <TableRow>
+        <TableCell>Nenhum pedido encontrado</TableCell>
+      </TableRow>
+    )
+  } else {
+    orderComponent = orders.map(
+      ({ code, collaborator, description, id, status, createdAt }) => {
+        const lastUpdate = format(
+          new Date(createdAt),
+          "dd/MM/yyyy 'às' HH:mm",
+          {
+            locale: ptBR,
+          },
+        )
+
+        return (
+          <TableRow key={id}>
+            <TableCell className="hidden sm:table-cell">
+              <Image
+                alt="Product image"
+                className="aspect-square rounded-md object-cover"
+                height="64"
+                src="/bag.png"
+                width="64"
+              />
+            </TableCell>
+            <TableCell>
+              <div className="font-medium">Pedido #{code}</div>
+              <div className="hidden text-sm text-muted-foreground md:inline">
+                {description}
+              </div>
+            </TableCell>
+            <TableCell className="font-medium hidden sm:table-cell">
+              {collaborator.name}
+            </TableCell>
+            <TableCell>
+              <Badge
+                className={
+                  status === 'EmRota'
+                    ? 'bg-red-500 hover:bg-red-600'
+                    : status === 'Finalizado'
+                      ? 'bg-green-500 hover:bg-green-600'
+                      : status === 'Avaliado'
+                        ? 'bg-primary'
+                        : ''
+                }
+              >
+                {status === 'EmRota' ? 'Em rota' : status}
+              </Badge>
+            </TableCell>
+            <TableCell className="hidden lg:table-cell">{lastUpdate}</TableCell>
+            <TableCell>
+              <form action={handleRateFormSubmit}>
+                <Input
+                  className="sr-only hidden"
+                  name="order"
+                  id="order"
+                  value={id}
+                  readOnly
+                />
+                <motion.div
+                  whileHover={{
+                    scale: 1.1,
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                  className="ml-auto"
+                >
+                  <Button
+                    type="submit"
+                    className="w-fit h-fit bg-primary p-2 rounded-full"
+                  >
+                    <Package className="text-white" />
+                  </Button>
+                </motion.div>
+              </form>
+            </TableCell>
+          </TableRow>
+        )
+      },
+    )
+  }
+
   return (
     <Tabs defaultValue="semana">
       <div className="flex items-center">
@@ -102,92 +188,7 @@ export default async function OrdersTable({ orders }: { orders: TOrder[] }) {
                   </TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody>
-                {orders.map(
-                  ({
-                    code,
-                    collaborator,
-                    description,
-                    id,
-                    status,
-                    createdAt,
-                  }) => {
-                    const lastUpdate = format(
-                      new Date(createdAt),
-                      "dd/MM/yyyy 'às' HH:mm",
-                      {
-                        locale: ptBR,
-                      },
-                    )
-
-                    return (
-                      <TableRow key={id}>
-                        <TableCell className="hidden sm:table-cell">
-                          <Image
-                            alt="Product image"
-                            className="aspect-square rounded-md object-cover"
-                            height="64"
-                            src="/bag.png"
-                            width="64"
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <div className="font-medium">Pedido #{code}</div>
-                          <div className="hidden text-sm text-muted-foreground md:inline">
-                            {description}
-                          </div>
-                        </TableCell>
-                        <TableCell className="font-medium hidden sm:table-cell">
-                          {collaborator.name}
-                        </TableCell>
-                        <TableCell>
-                          <Badge
-                            className={
-                              status === 'EmRota'
-                                ? 'bg-red-500 hover:bg-red-600'
-                                : status === 'Finalizado'
-                                  ? 'bg-green-500 hover:bg-green-600'
-                                  : status === 'Avaliado'
-                                    ? 'bg-primary'
-                                    : ''
-                            }
-                          >
-                            {status === 'EmRota' ? 'Em rota' : status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="hidden lg:table-cell">
-                          {lastUpdate}
-                        </TableCell>
-                        <TableCell>
-                          <form action={handleRateFormSubmit}>
-                            <Input
-                              className="sr-only hidden"
-                              name="order"
-                              id="order"
-                              value={id}
-                              readOnly
-                            />
-                            <motion.div
-                              whileHover={{
-                                scale: 1.1,
-                              }}
-                              whileTap={{ scale: 0.9 }}
-                              className="ml-auto"
-                            >
-                              <Button
-                                type="submit"
-                                className="w-fit h-fit bg-primary p-2 rounded-full"
-                              >
-                                <Package className="text-white" />
-                              </Button>
-                            </motion.div>
-                          </form>
-                        </TableCell>
-                      </TableRow>
-                    )
-                  },
-                )}
-              </TableBody>
+              <TableBody>{orderComponent}</TableBody>
             </Table>
           </CardContent>
           <CardFooter>
