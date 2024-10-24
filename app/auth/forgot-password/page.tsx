@@ -1,5 +1,4 @@
 import { MainButton } from '@/components/pages/auth/main-button'
-import { SecondaryButton } from '@/components/pages/auth/secondary-button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Image from 'next/image'
@@ -32,11 +31,8 @@ export default function ForgotPasswordPage() {
             Insere o endereço de e-mail que você usou para se registrar no
             Condelivery. Você receberá um e-mail para definir uma nova senha.
           </p>
-          <MainButton className='my-auto'>Entrar</MainButton>
-          <Link
-            href={'/auth'}
-            className="text-center mt-auto text-blue-700"
-          >
+          <MainButton className="my-auto">Entrar</MainButton>
+          <Link href={'/auth'} className="text-center mt-auto text-blue-700">
             Já possui uma conta? <span className="underline">Entrar</span>
           </Link>
         </div>
