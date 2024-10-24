@@ -25,18 +25,16 @@ export type TOrderDetails = {
   //   name: string
   //   value: number
   // }[]
-  // tax: number
-  // freight: number
+  tax: number
+  freight: number
   resident: {
     name: string
-    apartment: string
-    block: string
     adress: {
       street: string
       country: string
       neighborhood: string
       state: string
-      cep: string
+      zipCode: string
       number: number
     }
   }

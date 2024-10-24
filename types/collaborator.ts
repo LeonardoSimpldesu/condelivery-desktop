@@ -13,10 +13,10 @@ export type TCollaborator = {
   mediaRating: number
   countRating: number
   operatingTimeInMonths: number
-  tags: string
+  tags: string[]
   languages: string
   local: string
-  servicesProvided: string // Atualizar a API para isto ser um array
+  servicesProvided: string[]
   active: boolean
   ratings: TRating[]
 }
@@ -28,10 +28,10 @@ export type TCollaboratorDetails = {
   mediaRating: number
   countRating: number
   operatingTimeInMonths: number
-  tags: string
+  tags: string[]
   languages: string
   local: string
-  servicesProvided: string
+  servicesProvided: string[]
   active: boolean
   ratings: TRating[]
 }

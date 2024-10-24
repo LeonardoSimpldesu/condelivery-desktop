@@ -21,12 +21,20 @@ type OrderDetailsProps = {
 }
 
 export async function OrderDetails({ orderId }: OrderDetailsProps) {
-  const { code, resident, rating, collaborator, updatedAt, status } =
-    await Fetcher<TOrderDetails>(`/get-order-detail/${orderId}`, {
-      next: {
-        tags: ['get-orders-details'],
-      },
-    })
+  const {
+    code,
+    resident,
+    rating,
+    collaborator,
+    updatedAt,
+    status,
+    tax,
+    freight,
+  } = await Fetcher<TOrderDetails>(`/get-order-detail/${orderId}`, {
+    next: {
+      tags: ['get-orders-details'],
+    },
+  })
 
   const renderStars = (rating: number) => {
     return Array(5)
@@ -99,15 +107,15 @@ export async function OrderDetails({ orderId }: OrderDetailsProps) {
               </li>
               <li className="flex items-center justify-between">
                 <span className="text-muted-foreground">Frete</span>
-                <span>R$5.00</span>
+                <span>R${freight.toFixed(2)}</span>
               </li>
               <li className="flex items-center justify-between">
                 <span className="text-muted-foreground">Taxa</span>
-                <span>R$5.00</span>
+                <span>R${tax.toFixed(2)}</span>
               </li>
               <li className="flex items-center justify-between font-semibold">
                 <span className="text-muted-foreground">Total</span>
-                <span>R$329.00</span>
+                <span>R${(299 + freight + tax).toFixed(2)}</span>
               </li>
             </ul>
           </div>
@@ -121,8 +129,8 @@ export async function OrderDetails({ orderId }: OrderDetailsProps) {
                   {resident.adress.number} {resident.adress.street}
                 </span>
                 <span>
-                  {resident.adress.state}, {resident.adress.country}{' '}
-                  {resident.adress.cep}
+                  {resident.adress.state}, {resident.adress.country},{' '}
+                  {resident.adress.zipCode}
                 </span>
               </address>
             </div>

@@ -112,14 +112,14 @@ export default async function OrdersTable({ orders }: { orders: TOrder[] }) {
                     status,
                     createdAt,
                   }) => {
-                    // const lastUpdate = format(
-                    //   new Date(createdAt),
-                    //   "dd/MM/yyyy 'às' HH:mm",
-                    //   {
-                    //     locale: ptBR,
-                    //   },
-                    // )
-                    const lastUpdate = '23 de Setembro, 2024'
+                    const lastUpdate = format(
+                      new Date(createdAt),
+                      "dd/MM/yyyy 'às' HH:mm",
+                      {
+                        locale: ptBR,
+                      },
+                    )
+
                     return (
                       <TableRow key={id}>
                         <TableCell className="hidden sm:table-cell">
@@ -138,8 +138,7 @@ export default async function OrdersTable({ orders }: { orders: TOrder[] }) {
                           </div>
                         </TableCell>
                         <TableCell className="font-medium hidden sm:table-cell">
-                          {/* {collaborator.name} */}
-                          NOME PROVISÓRIO
+                          {collaborator.name}
                         </TableCell>
                         <TableCell>
                           <Badge

@@ -12,13 +12,14 @@ export type TCondominium = {
     title: string
     description: string
   }[]
-  adress: {
-    street: string
+  address: {
+    city: string
     country: string
     neighborhood: string
-    state: string
-    cep: string
     number: number
+    state: string
+    street: string
+    zipCode: string
   }
   blocks: {
     id: number

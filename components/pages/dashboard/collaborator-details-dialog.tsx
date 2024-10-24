@@ -95,8 +95,8 @@ export async function CollaboratorsDetailsModal({
             <BadgeInfo size={32} strokeWidth={1} />
             <p className="">
               Outros serviços{' '}
-              {servicesProvided.split(';').map((value: string) => (
-                <strong key={value}>{value}, </strong>
+              {servicesProvided.map((value: string) => (
+                <strong key={value}>{value} </strong>
               ))}
             </p>
           </div>
@@ -104,7 +104,7 @@ export async function CollaboratorsDetailsModal({
           <div className="">
             <h3 className="text-xl font-semibold">Destaques do colaborador</h3>
             <div className="flex gap-4 mt-4">
-              {tags.split(';').map((value: string) => (
+              {tags.map((value: string) => (
                 <Badge key={value}>{value}</Badge>
               ))}
             </div>

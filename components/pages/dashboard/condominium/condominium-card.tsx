@@ -21,7 +21,7 @@ type TCondominiumCard = {
 }
 
 export async function CondominiumCard({ isAdmin = false }: TCondominiumCard) {
-  const { name, policies, blocks } = await Fetcher<TCondominium>(
+  const { name, policies, blocks, address } = await Fetcher<TCondominium>(
     '/get-condominiums',
     {
       next: {
@@ -90,16 +90,15 @@ export async function CondominiumCard({ isAdmin = false }: TCondominiumCard) {
         <div className="grid sm:grid-cols-2 gap-4">
           <div className="grid gap-3">
             <div className="font-semibold">Informações de transporte</div>
-            {/* <address className="grid gap-0.5 not-italic text-muted-foreground">
-              <span>{resident.name}</span>
+            <address className="grid gap-0.5 not-italic text-muted-foreground">
+              <span>João Tranquilino</span>
               <span>
-                {resident.adress.number} {resident.adress.street}
+                {address.city}, {address.street}
               </span>
               <span>
-                {resident.adress.state}, {resident.adress.country}{' '}
-                {resident.adress.cep}
+                {address.state}, {address.country}, {address.zipCode}
               </span>
-            </address> */}
+            </address>
           </div>
           <div className="grid auto-rows-max gap-3">
             <div className="font-semibold">Endereço de cobrança</div>
