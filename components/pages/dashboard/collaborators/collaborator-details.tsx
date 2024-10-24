@@ -81,18 +81,26 @@ export async function CollaboratorsDetails({
           <BadgeInfo size={32} strokeWidth={1} />
           <p className="">
             Outros serviços{' '}
-            {servicesProvided.map((value: string) => (
-              <strong key={value}>{value}, </strong>
-            ))}
+            {servicesProvided
+              ? Array.isArray(servicesProvided)
+                ? servicesProvided.map((value: string) => (
+                    <strong key={value}>{value} </strong>
+                  ))
+                : 'Nenhum serviço disponível'
+              : 'Nenhum serviço disponível'}
           </p>
         </div>
         <Separator />
         <div className="">
           <h3 className="text-xl font-semibold">Destaques do colaborador</h3>
           <div className="flex gap-4 mt-4">
-            {tags.map((value: string) => (
-              <Badge key={value}>{value}</Badge>
-            ))}
+            {tags
+              ? Array.isArray(tags)
+                ? tags.map((value: string) => (
+                    <Badge key={value}>{value}</Badge>
+                  ))
+                : 'Nenhuma tag disponível'
+              : 'Nenhuma tag disponível'}
           </div>
         </div>
         <Separator />

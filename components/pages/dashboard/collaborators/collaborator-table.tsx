@@ -132,82 +132,86 @@ export async function CollaboratorTable({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {collaborators.map(
-              ({
-                name,
-                id,
-                mediaRating,
-                servicesProvided,
-                operatingTimeInMonths,
-                countDeliveries,
-              }) => {
-                const jobs = servicesProvided.map((job, i) => (
-                  <p key={i}>{job} </p>
-                ))
-                return (
-                  <TableRow key={id}>
-                    <TableCell className="hidden sm:table-cell">
-                      <Image
-                        alt="Product image"
-                        className="aspect-square rounded-md object-cover"
-                        height="50"
-                        src="/avatar.png"
-                        width="50"
-                      />
-                    </TableCell>
-                    <TableCell className="font-medium">{name}</TableCell>
-                    <TableCell>
-                      <div className="flex gap-1 items-center">
-                        <span className="ml-2">{mediaRating.toFixed(1)}</span>
-                        <Star
-                          size={16}
-                          className="text-yellow-400 fill-yellow-400"
-                        />
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden sm:table-cell">
-                      {jobs}
-                    </TableCell>
-                    <TableCell className="hidden xl:table-cell">
-                      {operatingTimeInMonths} meses
-                    </TableCell>
-                    <TableCell className="hidden sm:table-cell">
-                      <p className="flex items-center gap-1">
-                        <span>
-                          <Package size={16} />
-                        </span>
-                        {countDeliveries}
-                      </p>
-                    </TableCell>
-                    <TableCell>
-                      <form action={handleFormSubmit}>
-                        <Input
-                          className="sr-only hidden"
-                          name="collaborator"
-                          id="collaborator"
-                          value={id}
-                          readOnly
-                        />
-                        <motion.div
-                          whileHover={{
-                            scale: 1.1,
-                          }}
-                          whileTap={{ scale: 0.9 }}
-                          className="ml-auto"
-                        >
-                          <Button
-                            type="submit"
-                            className="ml-auto w-fit h-fit bg-primary p-2 rounded-full"
-                          >
-                            <CircleUser className="text-white" />
-                          </Button>
-                        </motion.div>
-                      </form>
-                    </TableCell>
-                  </TableRow>
+            {collaborators
+              ? collaborators.map(
+                  ({
+                    name,
+                    id,
+                    mediaRating,
+                    servicesProvided,
+                    operatingTimeInMonths,
+                    countDeliveries,
+                  }) => {
+                    const jobs = servicesProvided
+                      ? servicesProvided.map((job, i) => <p key={i}>{job} </p>)
+                      : 'Nenhum trabalho disponível'
+                    return (
+                      <TableRow key={id}>
+                        <TableCell className="hidden sm:table-cell">
+                          <Image
+                            alt="Product image"
+                            className="aspect-square rounded-md object-cover"
+                            height="50"
+                            src="/avatar.png"
+                            width="50"
+                          />
+                        </TableCell>
+                        <TableCell className="font-medium">{name}</TableCell>
+                        <TableCell>
+                          <div className="flex gap-1 items-center">
+                            <span className="ml-2">
+                              {mediaRating.toFixed(1)}
+                            </span>
+                            <Star
+                              size={16}
+                              className="text-yellow-400 fill-yellow-400"
+                            />
+                          </div>
+                        </TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          {jobs}
+                        </TableCell>
+                        <TableCell className="hidden xl:table-cell">
+                          {operatingTimeInMonths} meses
+                        </TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          <p className="flex items-center gap-1">
+                            <span>
+                              <Package size={16} />
+                            </span>
+                            {countDeliveries}
+                          </p>
+                        </TableCell>
+                        <TableCell>
+                          <form action={handleFormSubmit}>
+                            <Input
+                              className="sr-only hidden"
+                              name="collaborator"
+                              id="collaborator"
+                              value={id}
+                              readOnly
+                            />
+                            <motion.div
+                              whileHover={{
+                                scale: 1.1,
+                              }}
+                              whileTap={{ scale: 0.9 }}
+                              className="ml-auto"
+                            >
+                              <Button
+                                type="submit"
+                                className="ml-auto w-fit h-fit bg-primary p-2 rounded-full"
+                              >
+                                <CircleUser className="text-white" />
+                              </Button>
+                            </motion.div>
+                          </form>
+                        </TableCell>
+                      </TableRow>
+                    )
+                  },
                 )
-              },
-            )}
+              : 'Nenhum colaborador disponível'}
           </TableBody>
         </Table>
       </CardContent>
