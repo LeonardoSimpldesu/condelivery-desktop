@@ -30,6 +30,7 @@ import { Fetcher } from '@/lib/fetcher'
 import { TCollaborator } from '@/types/collaborator'
 import { Collaborators } from '@/components/pages/dashboard/collaborators'
 import * as motion from 'framer-motion/client'
+import { Suspense } from 'react'
 
 export default async function CondominiumPage() {
   const collaborators = await Fetcher<TCollaborator[]>('/get-collaborators', {
@@ -41,23 +42,26 @@ export default async function CondominiumPage() {
   return (
     <main className="container mx-auto grid gap-6 w-full lg:grid-cols-3">
       <div className="lg:col-span-2">
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: -20,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-        >
-          <Collaborators
-            collaborators={collaborators}
-            description="Colaboradores trabalhando neste condomínio"
-            title="Colaboradores"
-            isAdmin
-          />
-        </motion.div>
+        <Suspense fallback={<div>Carregando colaboradores...</div>}>
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+          >
+            <Collaborators
+              collaborators={collaborators}
+              description="Colaboradores trabalhando neste condomínio"
+              title="Colaboradores"
+              isAdmin
+            />
+          </motion.div>
+        </Suspense>
+
         <motion.div
           initial={{
             opacity: 0,
@@ -153,19 +157,21 @@ export default async function CondominiumPage() {
           </Card>
         </motion.div>
       </div>
-      <motion.div
-        initial={{
-          opacity: 0,
-          x: 20,
-        }}
-        animate={{
-          opacity: 1,
-          x: 0,
-          transition: { delay: 0.75 },
-        }}
-      >
-        <CondominiumCard isAdmin />
-      </motion.div>
+      <Suspense fallback={<div>Carregando detalhes do condominínio...</div>}>
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: 20,
+          }}
+          animate={{
+            opacity: 1,
+            x: 0,
+            transition: { delay: 0.75 },
+          }}
+        >
+          <CondominiumCard isAdmin />
+        </motion.div>
+      </Suspense>
     </main>
   )
 }

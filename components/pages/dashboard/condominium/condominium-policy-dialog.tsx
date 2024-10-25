@@ -20,7 +20,7 @@ export async function CondominiumPolicyDialog({
 }>) {
   async function formSubmit(e: FormData) {
     'use server'
-    const response = await Fetcher('/create-policy', {
+    await Fetcher('/create-policy', {
       method: 'POST',
       body: JSON.stringify({
         title: e.get('title'),
@@ -29,8 +29,6 @@ export async function CondominiumPolicyDialog({
     })
 
     revalidateTag('get-condominiums')
-
-    console.log(response)
   }
 
   return (

@@ -17,6 +17,7 @@ import { TCollaborator } from '@/types/collaborator'
 import { CondominiumCard } from '@/components/pages/dashboard/condominium/condominium-card'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Collaborators } from '@/components/pages/dashboard/collaborators'
+import { Suspense } from 'react'
 
 export default async function DashboardPage() {
   const orders = await Fetcher<TOrder[]>('/get-orders', {
@@ -51,37 +52,44 @@ export default async function DashboardPage() {
     },
   }
 
-  let orderComponent
-
-  if (!orders || !Array.isArray(orders)) {
-    orderComponent = <div className="">Nenhum pedido encontrado</div>
-  } else {
-    orderComponent = orders.map(({ code, description, status, id }) => (
-      <motion.div key={id} variants={item}>
-        <Order code={code} description={description} status={status} id={id} />
-      </motion.div>
-    ))
+  function OrderComponent() {
+    if (!orders || !Array.isArray(orders)) {
+      return <div className="">Nenhum pedido encontrado</div>
+    } else {
+      return orders.map(({ code, description, status, id }) => (
+        <motion.div key={id} variants={item}>
+          <Order
+            code={code}
+            description={description}
+            status={status}
+            id={id}
+          />
+        </motion.div>
+      ))
+    }
   }
 
   return (
     <main className="container mx-auto grid gap-4 xl:grid-cols-3">
       <div className="xl:col-span-2">
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: -20,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-        >
-          <Collaborators
-            collaborators={collaborators}
-            title="Colaboradores Ativos"
-            description="Colaboradores trabalhando neste momento"
-          />
-        </motion.div>
+        <Suspense fallback={<div>Carregando colaboradores...</div>}>
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+          >
+            <Collaborators
+              collaborators={collaborators}
+              title="Colaboradores Ativos"
+              description="Colaboradores trabalhando neste momento"
+            />
+          </motion.div>
+        </Suspense>
         <motion.div
           initial={{
             opacity: 0,
@@ -124,14 +132,16 @@ export default async function DashboardPage() {
             </CardHeader>
             <ScrollArea className="w-full h-[25rem] pb-4">
               <CardContent>
-                <motion.div
-                  variants={itemsCase}
-                  initial="hidden"
-                  animate="visible"
-                  className="grid sm:grid-cols-2 gap-4 "
-                >
-                  {orderComponent}
-                </motion.div>
+                <Suspense fallback={<div>Carregando produtos...</div>}>
+                  <motion.div
+                    variants={itemsCase}
+                    initial="hidden"
+                    animate="visible"
+                    className="grid sm:grid-cols-2 gap-4 "
+                  >
+                    <OrderComponent />
+                  </motion.div>
+                </Suspense>
               </CardContent>
             </ScrollArea>
           </Card>
