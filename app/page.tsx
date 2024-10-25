@@ -1,86 +1,42 @@
+import { Navigation } from '@/components/pages/home/navigation'
 import Image from 'next/image'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 
 export default function Home() {
   return (
-    <main className="bg-[#DCDBDA] h-screen">
-      <div className="flex flex-col bg-[url('/landing/banner1.png')] bg-cover min-h-screen py-10 px-6 lg:px-40 justify-center">
-        <div className="flex flex-col lg:flex-row justify-between items-center h-auto lg:h-[4.75rem] px-4 lg:px-[1.875rem] rounded-[20px] bg-[#E9EBF8] gap-6">
-          <a href="#" className="w-[120px] lg:w-[150px] h-auto">
-            <Image
-              src="/landing/logo-condelivery.png"
-              width="150"
-              height="70"
-              alt="Logo Condelivery"
-            />
-          </a>
-          <nav className="mt-4 lg:mt-0">
-            <ul className="flex flex-col lg:flex-row list-none gap-4 lg:gap-8">
-              <li>
-                <a
-                  className="no-underline text-sm lg:text-base font-bold text-black"
-                  href="#sobre"
-                >
-                  Sobre
-                </a>
-              </li>
-              <li>
-                <a
-                  className="no-underline text-sm lg:text-base font-bold text-black"
-                  href="#vantagens"
-                >
-                  Vantagens
-                </a>
-              </li>
-              <li>
-                <a
-                  className="no-underline text-sm lg:text-base font-bold text-black"
-                  href="#recursos"
-                >
-                  Recursos
-                </a>
-              </li>
-              <li>
-                <a
-                  className="no-underline text-sm lg:text-base font-bold text-black"
-                  href="#PerguntasFrequentes"
-                >
-                  Perguntas Frequentes
-                </a>
-              </li>
-              <li>
-                <a
-                  className="no-underline text-sm lg:text-base font-bold text-black"
-                  href="#contato"
-                >
-                  Contato
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div className="mt-4 lg:mt-0">
-            <a href="#">
-              <button className="w-[90px] lg:w-[110px] h-[42px] text-[14px] lg:text-[17px] text-[#E9EBF8] rounded-[10px] border-none bg-[#F46D1F] cursor-pointer">
-                Entrar
-              </button>
-            </a>
-          </div>
-        </div>
+    <main className="relative min-h-screen scroll-smooth">
+      <Navigation />
 
-        <div className="flex flex-col items-center mt-10 lg:mt-[200px] text-[#E9EBF8]">
-          <h1 className="text-[48px] sm:text-[64px] md:text-[80px] lg:text-[128px] font-extrabold text-center">
+      <div className="relative min-h-screen flex flex-col justify-center">
+        <Image
+          src={'/landing/banner1.png'}
+          fill
+          alt="home entregando"
+          className="-z-10"
+        />
+        <div className=" flex flex-col items-center gap-4 text-[#E9EBF8]">
+          <h1 className="font-extrabold text-center lg:text-8xl">
             Condelivery
           </h1>
-          <p className="text-[18px] sm:text-[24px] md:text-[32px] lg:text-[40px] font-semibold text-center">
+          <p className="lg:text-4xl font-semibold text-center">
             Suas entregas no condomínio, simplificadas!
           </p>
-          <button className="w-[140px] sm:w-[160px] md:w-[180px] lg:w-[191.65px] h-[48px] sm:h-[56px] md:h-[62px] lg:h-[66px] rounded-[10px] border border-[#DCDBDA] bg-transparent mt-6 lg:mt-[40px] text-[16px] sm:text-[20px] md:text-[22px] lg:text-[24px] font-bold cursor-pointer">
+          <button className="border border-[#DCDBDA] bg-transparent font-bold cursor-pointer py-5 px-7 mt-4 rounded-2xl text-xl">
             Saiba mais
           </button>
         </div>
       </div>
 
-      <section className="flex flex-col items-center justify-center p-6 bg-gray-50">
-        <div className="bg-white shadow-lg rounded-lg mt-20 p-8 max-w-4xl w-full">
+      <section
+        className="flex flex-col items-center justify-center p-6 bg-gray-50"
+        id="sobre"
+      >
+        <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">Sobre nós</h2>
           <p className="text-xl font-bold text-orange-500 mb-6">Condelivery</p>
           <p className="text-gray-700 leading-relaxed">
@@ -94,35 +50,23 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flex flex-wrap justify-center mt-20 gap-4">
-        <Image
-          src="/landing/img-mcc.png"
-          alt="McCafe"
-          width={350}
-          height={455}
-          className="w-[250px] h-[325px] md:w-[300px] md:h-[390px] lg:w-[350px] lg:h-[455px]"
-        />
-        <Image
-          src="/landing/twoPeople.png"
-          alt="Two People"
-          width={350}
-          height={455}
-          className="w-[250px] h-[325px] md:w-[300px] md:h-[390px] lg:w-[350px] lg:h-[455px]"
-        />
-        <Image
-          src="/landing/handshake.png"
-          alt="Handshake"
-          width={350}
-          height={455}
-          className="w-[250px] h-[325px] md:w-[300px] md:h-[390px] lg:w-[350px] lg:h-[455px]"
-        />
-        <Image
-          src="/landing/picking-up-package.png"
-          alt="Picking up Package"
-          width={350}
-          height={455}
-          className="w-[250px] h-[325px] md:w-[300px] md:h-[390px] lg:w-[350px] lg:h-[455px]"
-        />
+      <section className="grid grid-rows-4 sm:grid-rows-2 sm:grid-cols-2 xl:grid-rows-1 xl:grid-cols-4 min-h-96 mt-20 gap-12 px-20 container mx-auto xl:p-0 xl:gap-8">
+        <div className="relative aspect-square xl:aspect-[450/585]">
+          <Image src="/landing/img-mcc.png" alt="McCafe" fill />
+        </div>
+        <div className="relative aspect-square xl:aspect-[450/585]">
+          <Image src="/landing/twoPeople.png" alt="Two People" fill />
+        </div>
+        <div className="relative aspect-square xl:aspect-[450/585]">
+          <Image src="/landing/handshake.png" alt="Handshake" fill />
+        </div>
+        <div className="relative aspect-square xl:aspect-[450/585]">
+          <Image
+            src="/landing/picking-up-package.png"
+            alt="Picking up Package"
+            fill
+          />
+        </div>
       </section>
 
       <section className="py-16 px-6">
@@ -200,11 +144,110 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-16 px-4 max-w-screen-xl mx-auto">
+      <section className="mt-16 px-4 container mx-auto" id="recursos">
         <h2 className="text-2xl font-bold text-center mb-8">
           Explore nos recursos
         </h2>
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="grid md:grid-cols-2 md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-3 gap-4 h-[100svh] md:h-[40rem]">
+          <div className="grid lg:grid-cols-2 gap-4">
+            <div className="relative w-full h-full overflow-hidden col-span-2">
+              <Image
+                src="/landing/grid/gestao-de-encomendas.png"
+                fill
+                alt="Gestão de encomendas"
+                className="object-cover -z-10 brightness-75 rounded-lg"
+              />
+              <div className=" w-full h-full p-4">
+                <h3 className="text-white text-lg font-semibold">
+                  Gestão de encomendas
+                </h3>
+              </div>
+            </div>
+            <div className="relative w-full h-full overflow-hidden">
+              <Image
+                src="/landing/grid/seguranca-de-dados.png"
+                fill
+                alt="Gestão de encomendas"
+                className="object-cover -z-10 brightness-75 rounded-lg"
+              />
+              <div className=" w-full h-full p-4">
+                <h3 className="text-white text-lg font-semibold">
+                  Segurança de Dados
+                </h3>
+              </div>
+            </div>
+            <div className="relative w-full h-full overflow-hidden">
+              <Image
+                src="/landing/grid/search-service.png"
+                fill
+                alt="Gestão de encomendas"
+                className="object-cover -z-10 brightness-75 rounded-lg"
+              />
+              <div className=" w-full h-full p-4">
+                <h3 className="text-white text-lg font-semibold">
+                  Oferta e Busca de Serviços
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4 row-span-2">
+            <div className="relative w-full h-full overflow-hidden">
+              <Image
+                src="/landing/grid/acompanhamento.png"
+                fill
+                alt="Gestão de encomendas"
+                className="object-cover -z-10 brightness-75 rounded-lg"
+              />
+              <div className=" w-full h-full p-4">
+                <h3 className="text-white text-lg font-semibold">
+                  Acompanhamento em Tempo Real
+                </h3>
+              </div>
+            </div>
+            <div className="relative w-full h-full overflow-hidden">
+              <Image
+                src="/landing/grid/integracao-apps.png"
+                fill
+                alt="Gestão de encomendas"
+                className="object-cover -z-10 brightness-75 rounded-lg"
+              />
+              <div className=" w-full h-full p-4">
+                <h3 className="text-white text-lg font-semibold">
+                  Integração com Apps de Delivery
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4">
+            <div className="relative w-full h-full overflow-hidden">
+              <Image
+                src="/landing/grid/notebook-service.png"
+                fill
+                alt="Gestão de encomendas"
+                className="object-cover -z-10 brightness-75 rounded-lg"
+              />
+              <div className=" w-full h-full p-4">
+                <h3 className="text-white text-lg font-semibold">
+                  Indicação de Prestadores de Serviços
+                </h3>
+              </div>
+            </div>
+            <div className="relative w-full h-full overflow-hidden lg:h-[50%]">
+              <Image
+                src="/landing/grid/notebook-monetization.png"
+                fill
+                alt="Gestão de encomendas"
+                className="object-cover -z-10 brightness-75 rounded-lg"
+              />
+              <div className=" w-full h-full p-4">
+                <h3 className="text-white text-lg font-semibold">
+                  Modelo de Monetização
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <div className="flex flex-wrap justify-center gap-4 overflow-hidden">
           <div className="relative" style={{ width: '511px', height: '269px' }}>
             <Image
               src="/landing/grid/gestao-de-encomendas.png"
@@ -303,10 +346,13 @@ export default function Home() {
               </h3>
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
 
-      <section className="flex flex-col lg:flex-row items-start justify-center mt-24 px-4 max-w-screen-lg mx-auto">
+      <section
+        className="flex flex-col lg:flex-row items-start justify-center mt-24 px-4 max-w-screen-lg mx-auto"
+        id="perguntas"
+      >
         {/* Título e subtítulo alinhados à esquerda */}
         <div className="mb-8 lg:mb-0 lg:mr-8 lg:w-[30%]">
           <h2 className="text-xl font-bold text-black">Perguntas Frequentes</h2>
@@ -316,32 +362,65 @@ export default function Home() {
         </div>
         {/* Perguntas Frequentes */}
         <div className="space-y-4 w-full lg:w-[600px]">
-          {/* Pergunta 1 */}
-          <div className="w-full h-[80px] border border-gray-300 rounded-lg flex items-center px-6">
-            <span className="text-lg">O que é o Condelivery?</span>
-            <span className="ml-auto text-lg font-bold">+</span>
-          </div>
-          {/* Pergunta 2 */}
-          <div className="w-full h-[80px] border border-gray-300 rounded-lg flex items-center px-6">
-            <span className="text-lg">Como funciona o Condelivery?</span>
-            <span className="ml-auto text-lg font-bold">+</span>
-          </div>
-          {/* Pergunta 3 (com borda azul) */}
-          <div className="w-full h-[80px] border border-gray-300 rounded-lg flex items-center px-6">
-            <span className="text-lg">Quanto custa o serviço?</span>
-            <span className="ml-auto text-lg font-bold">+</span>
-          </div>
-          {/* Pergunta 4 */}
-          <div className="w-full h-[80px] border border-gray-300 rounded-lg flex items-center px-6">
-            <span className="text-lg">
-              Como garantir a privacidade dos usuários?
-            </span>
-            <span className="ml-auto text-lg font-bold">+</span>
-          </div>
+          <Accordion type="single" collapsible>
+            <AccordionItem
+              value="item-1"
+              className="border-b-0 border border-gray-300 rounded-lg px-6"
+            >
+              <AccordionTrigger className="text-lg">
+                O que é o Condelivery?
+              </AccordionTrigger>
+              <AccordionContent>
+                Yes. It adheres to the WAI-ARIA design pattern.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          <Accordion type="single" collapsible>
+            <AccordionItem
+              value="item-1"
+              className="border-b-0 border border-gray-300 rounded-lg px-6"
+            >
+              <AccordionTrigger className="text-lg">
+                Como funciona o Condelivery?
+              </AccordionTrigger>
+              <AccordionContent>
+                Yes. It adheres to the WAI-ARIA design pattern.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          <Accordion type="single" collapsible>
+            <AccordionItem
+              value="item-1"
+              className="border-b-0 border border-gray-300 rounded-lg px-6"
+            >
+              <AccordionTrigger className="text-lg">
+                Quanto custa o serviço?
+              </AccordionTrigger>
+              <AccordionContent>
+                Yes. It adheres to the WAI-ARIA design pattern.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          <Accordion type="single" collapsible>
+            <AccordionItem
+              value="item-1"
+              className="border-b-0 border border-gray-300 rounded-lg px-6"
+            >
+              <AccordionTrigger className="text-lg">
+                Como garantir a privacidade dos usuários?
+              </AccordionTrigger>
+              <AccordionContent>
+                Yes. It adheres to the WAI-ARIA design pattern.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
 
-      <section className="bg-[#F46D1F] flex justify-center items-center h-[320px] mt-28">
+      <section
+        className="bg-[#F46D1F] flex justify-center items-center h-[320px] mt-28"
+        id="contato"
+      >
         <div className="flex flex-col md:flex-row items-center md:space-x-[250px] space-y-4 md:space-y-0">
           <h1 className="text-white text-2xl md:text-4xl font-semibold text-center md:text-left">
             Transforme suas entregas em uma <br />
