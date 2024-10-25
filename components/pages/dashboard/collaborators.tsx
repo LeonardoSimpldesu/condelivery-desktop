@@ -101,26 +101,28 @@ export function Collaborators({
             className="flex flex-col sm:grid sm:grid-cols-2 gap-6 py-3 xl:flex xl:flex-row overflow-y-hidden px-2"
           >
             {collaborators
-              ? collaborators.map(({ active, mediaRating, id, name }) =>
-                  active ? (
-                    <motion.div
-                      key={id}
-                      variants={item}
-                      whileHover={{
-                        scale: 1.05,
-                      }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Collaborator
-                        collaboratorId={id}
-                        rating={mediaRating}
-                        name={name}
-                      />
-                    </motion.div>
-                  ) : (
-                    ''
-                  ),
-                )
+              ? Array.isArray(collaborators)
+                ? collaborators.map(({ active, mediaRating, id, name }) =>
+                    active ? (
+                      <motion.div
+                        key={id}
+                        variants={item}
+                        whileHover={{
+                          scale: 1.05,
+                        }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <Collaborator
+                          collaboratorId={id}
+                          rating={mediaRating}
+                          name={name}
+                        />
+                      </motion.div>
+                    ) : (
+                      ''
+                    ),
+                  )
+                : 'Nenhum Colaborador'
               : 'Nenhum Colaborador'}
           </motion.div>
           <ScrollBar orientation="horizontal" />

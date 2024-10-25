@@ -132,8 +132,9 @@ export async function CollaboratorTable({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {collaborators
-              ? collaborators.map(
+            {collaborators ? (
+              Array.isArray(collaborators) ? (
+                collaborators.map(
                   ({
                     name,
                     id,
@@ -142,9 +143,13 @@ export async function CollaboratorTable({
                     operatingTimeInMonths,
                     countDeliveries,
                   }) => {
-                    const jobs = servicesProvided
-                      ? servicesProvided.map((job, i) => <p key={i}>{job} </p>)
-                      : 'Nenhum trabalho disponível'
+                    const jobs = servicesProvided ? (
+                      servicesProvided.map((job, i) => <p key={i}>{job} </p>)
+                    ) : (
+                      <TableRow>
+                        <TableCell>Nenhum trabalho disponível</TableCell>
+                      </TableRow>
+                    )
                     return (
                       <TableRow key={id}>
                         <TableCell className="hidden sm:table-cell">
@@ -211,7 +216,16 @@ export async function CollaboratorTable({
                     )
                   },
                 )
-              : 'Nenhum colaborador disponível'}
+              ) : (
+                <TableRow>
+                  <TableCell>Nenhum colaborador disponível</TableCell>
+                </TableRow>
+              )
+            ) : (
+              <TableRow>
+                <TableCell>Nenhum colaborador disponível</TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </CardContent>

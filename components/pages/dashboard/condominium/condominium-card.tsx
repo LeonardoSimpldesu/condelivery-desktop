@@ -46,7 +46,8 @@ export async function CondominiumCard({ isAdmin = false }: TCondominiumCard) {
         <div>
           <CardTitle>{name}</CardTitle>
           <CardDescription>
-            Condomínio com {blocks.length} blocos
+            Condomínio com{' '}
+            {blocks ? (Array.isArray(blocks) ? blocks.length : '') : ''} blocos
           </CardDescription>
         </div>
         <Separator className="my-4" />
@@ -94,12 +95,19 @@ export async function CondominiumCard({ isAdmin = false }: TCondominiumCard) {
             <div className="font-semibold">Informações de transporte</div>
             <address className="grid gap-0.5 not-italic text-muted-foreground">
               <span>João Tranquilino</span>
-              <span>
-                {address.city}, {address.street}
-              </span>
-              <span>
-                {address.state}, {address.country}, {address.zipCode}
-              </span>
+              {address ? (
+                <>
+                  {' '}
+                  <span>
+                    {address.city}, {address.street}
+                  </span>
+                  <span>
+                    {address.state}, {address.country}, {address.zipCode}
+                  </span>
+                </>
+              ) : (
+                'Nenhum endereço encontrado'
+              )}
             </address>
           </div>
           <div className="grid auto-rows-max gap-3">

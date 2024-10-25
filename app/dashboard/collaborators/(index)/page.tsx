@@ -43,25 +43,25 @@ export default async function CollaboratorsPage({
       </Suspense>
 
       <Suspense fallback={<div>Carregando detalhes do colaborador...</div>}>
-        <motion.div
-          initial={{
-            opacity: 0,
-            x: 20,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-            transition: { delay: 0.5 },
-          }}
-        >
-          <CollaboratorsDetails
-            collaboratorId={
-              searchParams.collaborator
-                ? Number(searchParams.collaborator)
-                : collaborators[0].id
-            }
-          />
-        </motion.div>
+        {searchParams.collaborator ? (
+          <motion.div
+            initial={{
+              opacity: 0,
+              x: 20,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              transition: { delay: 0.5 },
+            }}
+          >
+            <CollaboratorsDetails
+              collaboratorId={Number(searchParams.collaborator)}
+            />
+          </motion.div>
+        ) : (
+          'Nenhum colaborador encontrado'
+        )}
       </Suspense>
     </main>
   )
