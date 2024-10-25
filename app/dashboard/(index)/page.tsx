@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import * as motion from 'framer-motion/client'
+import env from '@/config/env'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -31,6 +32,13 @@ export default async function DashboardPage() {
       tags: ['get-collaborators'],
     },
   })
+
+  console.log('[ENV] BASE_URL', env.BASE_URL)
+  if (orders) {
+    console.log('[API] /get-orders', orders)
+  } else {
+    console.log('[API] /get-orders', 'Sem resposta')
+  }
 
   // FRAMER MOTION
   const itemsCase = {
