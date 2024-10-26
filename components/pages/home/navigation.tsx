@@ -54,9 +54,9 @@ export function Navigation() {
               </Link>
             ))}
           </div>
-          <button className="px-6 py-2 rounded-lg text-lg text-[#E9EBF8] bg-[#F46D1F] cursor-pointer">
+          <Link className="px-6 py-2 rounded-lg text-lg text-[#E9EBF8] bg-[#F46D1F] cursor-pointer" href={'auth'}>
             Entrar
-          </button>
+          </Link>
         </nav>
       </div>
 
