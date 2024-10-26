@@ -33,7 +33,7 @@ export default function Home() {
       </div>
 
       <section
-        className="flex flex-col items-center justify-center p-6 bg-gray-50"
+        className="flex flex-col items-center justify-center p-36 bg-gray-50"
         id="sobre"
       >
         <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full">
@@ -50,29 +50,66 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="grid grid-rows-4 sm:grid-rows-2 sm:grid-cols-2 xl:grid-rows-1 xl:grid-cols-4 min-h-96 mt-20 gap-12 px-20 container mx-auto xl:p-0 xl:gap-8">
+      <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 px-5 sm:px-10 xl:px-0 container mx-auto mt-8">
         <div className="relative aspect-square xl:aspect-[450/585]">
-          <Image src="/landing/img-mcc.png" alt="McCafe" fill />
+          <Image src="/landing/img-mcc.png" alt="McCafe" fill className="object-cover" />
         </div>
         <div className="relative aspect-square xl:aspect-[450/585]">
-          <Image src="/landing/twoPeople.png" alt="Two People" fill />
+          <Image src="/landing/twoPeople.png" alt="Two People" fill className="object-cover brightness-50" />
+          {/* Ícone e Texto sobrepostos */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+            <Image src="/landing/lampada-de-ideia.png" alt="Lâmpada" width={80} height={80} className="mb-4" />
+            <p className="text-center text-lg font-semibold">
+              transformar os serviços<br />de entregas em<br />condomínio
+            </p>
+          </div>
         </div>
         <div className="relative aspect-square xl:aspect-[450/585]">
-          <Image src="/landing/handshake.png" alt="Handshake" fill />
-        </div>
-        <div className="relative aspect-square xl:aspect-[450/585]">
-          <Image
-            src="/landing/picking-up-package.png"
-            alt="Picking up Package"
-            fill
-          />
+          <Image src="/landing/handshake.png" alt="Handshake" fill className="object-cover" />
         </div>
       </section>
 
-      <section className="py-16 px-6">
+
+      <section className="mt-24">
+        <h2 className="text-center text-5xl font-semibold text-black mb-12">Com o Condelivery você tem:</h2>
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-16">
+          {/* Conforto */}
+          <div className="flex flex-col items-center text-center">
+            <div className="relative flex items-center">
+              <div className="rounded-lg">
+                <Image src="/landing/conforto.png" alt="Conforto" width={250} height={250} />
+              </div>
+            </div>
+            <p className="text-black font-semibold text-2xl mt-5">CONFORTO</p>
+          </div>
+
+          {/* Controle */}
+          <div className="flex flex-col items-center text-center">
+            <div className="relative flex items-center">
+              <div className="rounded-lg">
+                <Image src="/landing/controle.png" alt="Controle" width={250} height={250} />
+              </div>
+            </div>
+            <p className="text-black font-semibold text-2xl mt-5">CONTROLE</p>
+          </div>
+
+          {/* Segurança */}
+          <div className="flex flex-col items-center text-center">
+            <div className="relative flex items-center">
+              <div className="rounded-lg">
+                <Image src="/landing/seguranca.png" alt="Segurança" width={250} height={250} />
+              </div>
+            </div>
+            <p className="text-black font-semibold text-2xl mt-5">SEGURANÇA</p>
+          </div>
+        </div>
+      </section>
+
+
+      <section className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Título da seção */}
-          <h2 className="text-3xl font-bold text-center mb-10">
+          <h2 className="text-3xl font-bold text-center mb-20">
             Feedback dos nossos clientes
           </h2>
 
@@ -85,9 +122,9 @@ export default function Home() {
                 width="784"
                 height="420"
                 alt=""
-                className="w-full object-cover"
+                className="w-full object-cover brightness-75"
               />
-              <div className="absolute bottom-0 left-0 p-4 bg-black bg-opacity-30 w-full">
+              <div className="absolute bottom-0 left-0 p-4 w-full">
                 <h3 className="text-white font-semibold">Carlos Pereira</h3>
                 <p className="text-white text-sm">
                   Desde que começamos a usar o Condelivery, a logística de
@@ -106,7 +143,7 @@ export default function Home() {
                 alt=""
                 className="w-full object-cover"
               />
-              <div className="absolute bottom-0 left-0 p-4 bg-black bg-opacity-30 w-full">
+              <div className="absolute bottom-0 left-0 p-4 w-full">
                 <h3 className="text-white font-semibold">Ana Silva</h3>
                 <p className="text-white text-sm">
                   O Condelivery transformou a maneira como recebemos nossas
@@ -145,8 +182,8 @@ export default function Home() {
       </section>
 
       <section className="mt-16 px-4 container mx-auto" id="recursos">
-        <h2 className="text-2xl font-bold text-center mb-8">
-          Explore nos recursos
+        <h2 className="text-2xl font-bold text-center mb-14">
+          Explore nossos recursos
         </h2>
         <div className="grid md:grid-cols-2 md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-3 gap-4 h-[100svh] md:h-[40rem]">
           <div className="grid lg:grid-cols-2 gap-4">
@@ -350,7 +387,7 @@ export default function Home() {
       </section>
 
       <section
-        className="flex flex-col lg:flex-row items-start justify-center mt-24 px-4 max-w-screen-lg mx-auto"
+        className="flex flex-col lg:flex-row items-start justify-center mt-28 px-4 max-w-screen-lg mx-auto"
         id="perguntas"
       >
         {/* Título e subtítulo alinhados à esquerda */}
@@ -371,7 +408,7 @@ export default function Home() {
                 O que é o Condelivery?
               </AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                O Condelivery é uma plataforma que melhora a logística de entregas em condomínios, integrando aplicativos de delivery como iFood, Rappi e Uber. Além disso, permite que moradores ofertem e busquem serviços, criando oportunidades de emprego local e facilitando a indicação de prestadores de serviços. A segurança dos dados é garantida conforme a LGPD.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -384,7 +421,7 @@ export default function Home() {
                 Como funciona o Condelivery?
               </AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                Disponibilizamos um ou mais colaboradores, que ficam à disposição para receber sua encomenda e levá-la até seu apartamento.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -397,7 +434,7 @@ export default function Home() {
                 Quanto custa o serviço?
               </AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                O Condelivery funciona com uma taxa fixa adicionada ao valor do condomínio, que oferece aos moradores acesso ilimitado aos serviços da plataforma. Cada morador contribui com R$ 20,00 mensais, dos quais R$ 10,00 são destinados ao colaborador responsável pelas entregas e R$ 10,00 são a taxa do aplicativo.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -410,7 +447,7 @@ export default function Home() {
                 Como garantir a privacidade dos usuários?
               </AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                Para proteger a privacidade dos usuários, o Condelivery adota práticas rigorosas de segurança de dados, em conformidade com a LGPD. Isso inclui a coleta mínima de dados, o armazenamento seguro de informações e o controle restrito de acesso, garantindo que apenas pessoas autorizadas tenham acesso aos dados dos usuários.
               </AccordionContent>
             </AccordionItem>
           </Accordion>

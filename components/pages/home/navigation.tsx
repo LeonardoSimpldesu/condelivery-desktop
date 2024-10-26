@@ -31,7 +31,7 @@ const menuOptions = [
 export function Navigation() {
   return (
     <header className="absolute z-50 inset-x-0 top-10 flex md:justify-center">
-      <div className="hidden container w-full justify-center items-center gap-4 px-8 py-5 bg-[#E9EBF8] rounded-2xl md:flex">
+      <div className="hidden container w-[80%] justify-center items-center gap-4 px-8 py-5 bg-[#E9EBF8] rounded-2xl md:flex">
         <nav className="w-full font-medium items-center justify-between gap-5 md:flex lg:gap-6">
           <div className="relative w-40 self-stretch">
             <Image
